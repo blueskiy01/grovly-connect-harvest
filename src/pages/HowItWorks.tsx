@@ -8,7 +8,7 @@ const HowItWorks = () => {
       icon: <Share className="w-12 h-12 text-primary" />,
       title: "Share or Search for What You Need",
       description: [
-        "Consumers: Share your interest in specific produce (e.g., "I'd like locally grown bok choy").",
+        "Consumers: Share your interest in specific produce (e.g., 'I\'d like locally grown bok choy').",
         "Farmers: List current crops, future harvests, or available space for planting.",
         "Businesses: Share reusable byproducts (e.g., coffee grounds for mushroom farming)."
       ]
@@ -18,7 +18,7 @@ const HowItWorks = () => {
       title: "Connect and Collaborate",
       description: [
         "Farmers see real demand from consumers and can plan their crops accordingly.",
-        "Example: "20 people want bok choy this season? Let's plant it!"",
+        "Example: '20 people want bok choy this season? Let\'s plant it!'",
         "Consumers can browse available listings, express interest, or pre-order produce.",
         "Businesses connect with farmers to share resources (like compost or waste materials)."
       ]
