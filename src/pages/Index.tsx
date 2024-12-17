@@ -44,19 +44,19 @@ const Index = () => {
       quote: "Grovly helped me reduce waste and connect with local buyers who value fresh produce.",
       author: "Sarah M.",
       role: "Local Farmer",
-      image: "https://images.unsplash.com/photo-1517022812141-23620dba5c23",
+      image: "/placeholder.svg",
     },
     {
       quote: "I love knowing exactly where my food comes from and supporting local agriculture.",
       author: "Michael R.",
       role: "Consumer",
-      image: "https://images.unsplash.com/photo-1582562124811-c09040d0a901",
+      image: "/placeholder.svg",
     },
     {
       quote: "Our café's coffee grounds now help local gardens grow. It's a win-win!",
       author: "Lisa K.",
       role: "Business Owner",
-      image: "https://images.unsplash.com/photo-1721322800607-8c38375eef04",
+      image: "/placeholder.svg",
     },
   ];
 
