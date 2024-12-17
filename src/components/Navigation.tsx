@@ -1,9 +1,33 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
+import { supabase } from '@/integrations/supabase/client';
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [user, setUser] = useState(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // Check current session
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user ?? null);
+    });
+
+    // Listen for auth changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      setUser(session?.user ?? null);
+    });
+
+    return () => {
+      subscription.unsubscribe();
+    };
+  }, []);
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    navigate('/');
+  };
 
   const navItems = [
     { name: 'Browse', path: '/browse' },
@@ -33,12 +57,29 @@ const Navigation = () => {
                 {item.name}
               </Link>
             ))}
-            <Link
-              to="/login"
-              className="px-4 py-2 rounded-lg bg-primary text-white hover:bg-primary-dark transition-colors"
-            >
-              Sign In
-            </Link>
+            {user ? (
+              <>
+                <Link
+                  to="/dashboard"
+                  className="text-charcoal-light hover:text-primary transition-colors"
+                >
+                  Dashboard
+                </Link>
+                <button
+                  onClick={handleLogout}
+                  className="px-4 py-2 rounded-lg bg-primary text-white hover:bg-primary-dark transition-colors"
+                >
+                  Sign Out
+                </button>
+              </>
+            ) : (
+              <Link
+                to="/login"
+                className="px-4 py-2 rounded-lg bg-primary text-white hover:bg-primary-dark transition-colors"
+              >
+                Sign In
+              </Link>
+            )}
           </div>
 
           {/* Mobile menu button */}
@@ -67,13 +108,34 @@ const Navigation = () => {
                 {item.name}
               </Link>
             ))}
-            <Link
-              to="/login"
-              className="block px-3 py-2 text-primary hover:text-primary-dark transition-colors"
-              onClick={() => setIsOpen(false)}
-            >
-              Sign In
-            </Link>
+            {user ? (
+              <>
+                <Link
+                  to="/dashboard"
+                  className="block px-3 py-2 text-charcoal-light hover:text-primary transition-colors"
+                  onClick={() => setIsOpen(false)}
+                >
+                  Dashboard
+                </Link>
+                <button
+                  onClick={() => {
+                    handleLogout();
+                    setIsOpen(false);
+                  }}
+                  className="block w-full text-left px-3 py-2 text-primary hover:text-primary-dark transition-colors"
+                >
+                  Sign Out
+                </button>
+              </>
+            ) : (
+              <Link
+                to="/login"
+                className="block px-3 py-2 text-primary hover:text-primary-dark transition-colors"
+                onClick={() => setIsOpen(false)}
+              >
+                Sign In
+              </Link>
+            )}
           </div>
         </div>
       )}
