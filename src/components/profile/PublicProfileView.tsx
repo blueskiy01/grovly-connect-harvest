@@ -85,7 +85,6 @@ const PublicProfileView = () => {
         <ActivitySnapshot userId={profile.id} role={profile.role} />
       </div>
     </div>
-  </div>
   );
 };
 
