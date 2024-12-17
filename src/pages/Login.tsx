@@ -2,14 +2,14 @@ import { useEffect } from 'react';
 import { Auth } from '@supabase/auth-ui-react';
 import { ThemeSupa } from '@supabase/auth-ui-shared';
 import { supabase } from '@/integrations/supabase/client';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import Navigation from '@/components/Navigation';
+import { Separator } from '@/components/ui/separator';
 
 const Login = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Check if user is already logged in
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
       if (session) {
         navigate('/dashboard');
@@ -26,23 +26,84 @@ const Login = () => {
       <Navigation />
       <div className="max-w-md mx-auto pt-24 px-4">
         <div className="bg-white rounded-lg shadow-md p-8">
-          <h1 className="text-2xl font-bold text-center mb-6 text-primary">Welcome to Grovly</h1>
-          <Auth
-            supabaseClient={supabase}
-            appearance={{
-              theme: ThemeSupa,
-              variables: {
-                default: {
-                  colors: {
-                    brand: '#2D3319',
-                    brandAccent: '#4A5827',
+          <div className="space-y-6">
+            <div className="text-center space-y-2">
+              <h1 className="text-2xl font-bold text-primary font-fraunces">
+                Welcome Back to Grovly
+              </h1>
+              <p className="text-charcoal-light text-sm">
+                Sign in to your account to continue
+              </p>
+            </div>
+
+            <Auth
+              supabaseClient={supabase}
+              appearance={{
+                theme: ThemeSupa,
+                style: {
+                  button: {
+                    background: '#2D3319',
+                    borderRadius: '8px',
+                    color: 'white',
+                    fontSize: '14px',
+                    padding: '10px 15px',
+                  },
+                  anchor: {
+                    color: '#4A5827',
+                    textDecoration: 'none',
+                    fontWeight: '500',
+                  },
+                  input: {
+                    borderRadius: '8px',
+                    padding: '10px 15px',
+                  },
+                  message: {
+                    borderRadius: '6px',
+                    fontSize: '14px',
+                    padding: '10px',
                   },
                 },
-              },
-            }}
-            providers={[]}
-            redirectTo={`${window.location.origin}/dashboard`}
-          />
+                variables: {
+                  default: {
+                    colors: {
+                      brand: '#2D3319',
+                      brandAccent: '#4A5827',
+                      inputBackground: 'white',
+                      inputBorder: '#E2E8F0',
+                      inputBorderHover: '#CBD5E1',
+                      inputBorderFocus: '#2D3319',
+                    },
+                    space: {
+                      inputPadding: '10px 15px',
+                      buttonPadding: '10px 15px',
+                    },
+                    borderWidths: {
+                      buttonBorderWidth: '1px',
+                      inputBorderWidth: '1px',
+                    },
+                    radii: {
+                      borderRadiusButton: '8px',
+                      buttonBorderRadius: '8px',
+                      inputBorderRadius: '8px',
+                    },
+                  },
+                },
+              }}
+              providers={['google']}
+              redirectTo={`${window.location.origin}/dashboard`}
+              view="sign_in"
+            />
+
+            <div className="text-center space-y-4">
+              <Separator className="my-4" />
+              <p className="text-sm text-charcoal-light">
+                Don't have an account?{' '}
+                <Link to="/signup" className="text-primary hover:text-primary-dark font-medium">
+                  Sign up for free
+                </Link>
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
