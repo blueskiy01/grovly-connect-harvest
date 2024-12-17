@@ -17,6 +17,8 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/how-it-works" element={<HowItWorks />} />
+          <Route path="/browse" element={<Browse />} />
+          <Route path="/listing/:id" element={<ListingDetails />} />
           {/* Additional routes will be added as we implement more pages */}
           <Route path="*" element={<Index />} />
         </Routes>
