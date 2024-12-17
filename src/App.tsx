@@ -8,6 +8,7 @@ import HowItWorks from "./pages/HowItWorks";
 import Browse from "./pages/Browse";
 import ListingDetails from "./pages/ListingDetails";
 import Login from "./pages/Login";
+import Profile from "./pages/Profile";
 
 const queryClient = new QueryClient();
 
@@ -23,6 +24,7 @@ const App = () => (
           <Route path="/browse" element={<Browse />} />
           <Route path="/listing/:id" element={<ListingDetails />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/profile" element={<Profile />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </BrowserRouter>
