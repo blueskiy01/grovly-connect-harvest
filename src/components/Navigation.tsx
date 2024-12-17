@@ -6,10 +6,9 @@ const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const navItems = [
-    { name: 'Browse', path: '/browse' },
+    { name: 'Home', path: '/' },
     { name: 'How It Works', path: '/how-it-works' },
-    { name: 'About', path: '/about' },
-    { name: 'Contact', path: '/contact' },
+    { name: 'Browse Listings', path: '/browse' },
   ];
 
   return (
@@ -33,12 +32,20 @@ const Navigation = () => {
                 {item.name}
               </Link>
             ))}
-            <Link
-              to="/login"
-              className="px-4 py-2 rounded-lg bg-primary text-white hover:bg-primary-dark transition-colors"
-            >
-              Sign In
-            </Link>
+            <div className="flex items-center space-x-4">
+              <Link
+                to="/login"
+                className="text-charcoal-light hover:text-primary transition-colors"
+              >
+                Login
+              </Link>
+              <Link
+                to="/signup"
+                className="px-4 py-2 rounded-lg bg-primary text-white hover:bg-primary-dark transition-colors"
+              >
+                Sign Up
+              </Link>
+            </div>
           </div>
 
           {/* Mobile menu button */}
@@ -69,10 +76,17 @@ const Navigation = () => {
             ))}
             <Link
               to="/login"
+              className="block px-3 py-2 text-charcoal-light hover:text-primary transition-colors"
+              onClick={() => setIsOpen(false)}
+            >
+              Login
+            </Link>
+            <Link
+              to="/signup"
               className="block px-3 py-2 text-primary hover:text-primary-dark transition-colors"
               onClick={() => setIsOpen(false)}
             >
-              Sign In
+              Sign Up
             </Link>
           </div>
         </div>
