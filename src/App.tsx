@@ -1,35 +1,36 @@
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import Index from "./pages/Index";
-import HowItWorks from "./pages/HowItWorks";
-import Browse from "./pages/Browse";
-import ListingDetails from "./pages/ListingDetails";
-import Login from "./pages/Login";
-import Profile from "./pages/Profile";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Index from '@/pages/Index';
+import Profile from '@/pages/Profile';
+import PublicProfileView from '@/components/profile/PublicProfileView';
+import Login from '@/pages/Login';
+import Register from '@/pages/Register';
+import Dashboard from '@/pages/Dashboard';
+import Browse from '@/pages/Browse';
+import HowItWorks from '@/pages/HowItWorks';
+import About from '@/pages/About';
+import Contact from '@/pages/Contact';
+import Settings from '@/pages/Settings';
+import { Toaster } from '@/components/ui/toaster';
 
-const queryClient = new QueryClient();
-
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
+function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<Index />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/browse" element={<Browse />} />
+        <Route path="/how-it-works" element={<HowItWorks />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/profile/:id/public" element={<PublicProfileView />} />
+        <Route path="/settings" element={<Settings />} />
+      </Routes>
       <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/how-it-works" element={<HowItWorks />} />
-          <Route path="/browse" element={<Browse />} />
-          <Route path="/listing/:id" element={<ListingDetails />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
-);
+    </Router>
+  );
+}
 
 export default App;

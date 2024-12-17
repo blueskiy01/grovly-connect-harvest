@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from "@/components/ui/use-toast";
 import Navigation from '@/components/Navigation';
 import ProfileHeader from '@/components/profile/ProfileHeader';
 import ProfileForm from '@/components/profile/ProfileForm';
 import { Database } from '@/integrations/supabase/types';
+import { Button } from '@/components/ui/button';
+import { Eye } from 'lucide-react';
 
 type UserRole = Database['public']['Enums']['user_role'];
 
@@ -136,11 +138,21 @@ const Profile = () => {
       <Navigation />
       <div className="pt-20 max-w-3xl mx-auto p-6">
         <div className="bg-cream rounded-lg p-8 shadow-sm">
-          <ProfileHeader
-            displayName={displayName}
-            role={role}
-            getInitials={getInitials}
-          />
+          <div className="flex justify-between items-start mb-8">
+            <ProfileHeader
+              displayName={displayName}
+              role={role}
+              getInitials={getInitials}
+            />
+            {user && (
+              <Link to={`/profile/${user.id}/public`}>
+                <Button variant="outline" size="sm" className="flex items-center gap-2">
+                  <Eye className="h-4 w-4" />
+                  View Public Profile
+                </Button>
+              </Link>
+            )}
+          </div>
           <ProfileForm
             displayName={displayName}
             bio={bio}
