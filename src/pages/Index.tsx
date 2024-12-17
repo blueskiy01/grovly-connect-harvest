@@ -25,17 +25,17 @@ const Index = () => {
     {
       title: "List or search for produce and resources",
       description: "Post your available produce or browse local listings to find what you need.",
-      image: "https://images.unsplash.com/photo-1517022812141-23620dba5c23",
+      image: "/placeholder.svg",
     },
     {
       title: "Connect with farmers or buyers",
       description: "Message directly with local farmers and buyers to arrange exchanges.",
-      image: "https://images.unsplash.com/photo-1582562124811-c09040d0a901",
+      image: "/placeholder.svg",
     },
     {
       title: "Share, trade, or buy locally",
       description: "Complete your transaction and contribute to a sustainable local economy.",
-      image: "https://images.unsplash.com/photo-1721322800607-8c38375eef04",
+      image: "/placeholder.svg",
     },
   ];
 
