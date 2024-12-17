@@ -10,10 +10,22 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { MapPin, Mail, Phone } from 'lucide-react';
 import Navigation from '@/components/Navigation';
 
+interface Profile {
+  id: string;
+  role: 'farmer' | 'consumer' | 'business';
+  display_name: string | null;
+  bio: string | null;
+  location: string | null;
+  phone: string | null;
+  show_contact_info: boolean | null;
+  created_at: string;
+  updated_at: string;
+}
+
 const Profile = () => {
   const [loading, setLoading] = useState(true);
-  const [user, setUser] = useState(null);
-  const [profile, setProfile] = useState(null);
+  const [user, setUser] = useState<any>(null);
+  const [profile, setProfile] = useState<Profile | null>(null);
   const [displayName, setDisplayName] = useState('');
   const [bio, setBio] = useState('');
   const [location, setLocation] = useState('');
@@ -38,7 +50,7 @@ const Profile = () => {
     getUser();
   }, [navigate]);
 
-  const fetchProfile = async (userId) => {
+  const fetchProfile = async (userId: string) => {
     try {
       setLoading(true);
       const { data, error } = await supabase
@@ -57,7 +69,7 @@ const Profile = () => {
         setPhone(data.phone || '');
         setShowContactInfo(data.show_contact_info || false);
       }
-    } catch (error) {
+    } catch (error: any) {
       toast({
         title: "Error fetching profile",
         description: error.message,
@@ -68,7 +80,7 @@ const Profile = () => {
     }
   };
 
-  const updateProfile = async (e) => {
+  const updateProfile = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
       setLoading(true);
@@ -89,7 +101,7 @@ const Profile = () => {
         title: "Success",
         description: "Profile updated successfully",
       });
-    } catch (error) {
+    } catch (error: any) {
       toast({
         title: "Error updating profile",
         description: error.message,
@@ -100,7 +112,7 @@ const Profile = () => {
     }
   };
 
-  const getInitials = (name) => {
+  const getInitials = (name: string | null) => {
     return name
       ? name.split(' ').map(n => n[0]).join('').toUpperCase()
       : '?';
