@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Leaf, Users, Recycle } from 'lucide-react';
+import { Leaf, Users, Recycle, ArrowRight } from 'lucide-react';
 import Navigation from '../components/Navigation';
 
 const Index = () => {
@@ -18,6 +18,45 @@ const Index = () => {
       icon: <Recycle className="w-8 h-8 text-primary" />,
       title: "For Businesses",
       description: "Share reusable resources and contribute to a circular local economy.",
+    },
+  ];
+
+  const steps = [
+    {
+      title: "List or search for produce and resources",
+      description: "Post your available produce or browse local listings to find what you need.",
+      image: "https://images.unsplash.com/photo-1517022812141-23620dba5c23",
+    },
+    {
+      title: "Connect with farmers or buyers",
+      description: "Message directly with local farmers and buyers to arrange exchanges.",
+      image: "https://images.unsplash.com/photo-1582562124811-c09040d0a901",
+    },
+    {
+      title: "Share, trade, or buy locally",
+      description: "Complete your transaction and contribute to a sustainable local economy.",
+      image: "https://images.unsplash.com/photo-1721322800607-8c38375eef04",
+    },
+  ];
+
+  const testimonials = [
+    {
+      quote: "Grovly helped me reduce waste and connect with local buyers who value fresh produce.",
+      author: "Sarah M.",
+      role: "Local Farmer",
+      image: "https://images.unsplash.com/photo-1517022812141-23620dba5c23",
+    },
+    {
+      quote: "I love knowing exactly where my food comes from and supporting local agriculture.",
+      author: "Michael R.",
+      role: "Consumer",
+      image: "https://images.unsplash.com/photo-1582562124811-c09040d0a901",
+    },
+    {
+      quote: "Our café's coffee grounds now help local gardens grow. It's a win-win!",
+      author: "Lisa K.",
+      role: "Business Owner",
+      image: "https://images.unsplash.com/photo-1721322800607-8c38375eef04",
     },
   ];
 
@@ -72,6 +111,67 @@ const Index = () => {
               <p className="text-charcoal-light">{benefit.description}</p>
             </div>
           ))}
+        </div>
+      </div>
+
+      {/* How It Works Section */}
+      <div className="bg-cream-dark py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-4xl font-bold text-center mb-16">How It Works</h2>
+          <div className="grid md:grid-cols-3 gap-8">
+            {steps.map((step, index) => (
+              <div key={step.title} className="relative">
+                <div className="bg-white rounded-xl p-6 h-full flex flex-col items-center text-center animate-fade-in" style={{ animationDelay: `${index * 200}ms` }}>
+                  <img src={step.image} alt={step.title} className="w-full h-48 object-cover rounded-lg mb-6" />
+                  <h3 className="text-xl font-bold mb-4">{step.title}</h3>
+                  <p className="text-charcoal-light">{step.description}</p>
+                </div>
+                {index < steps.length - 1 && (
+                  <div className="hidden md:block absolute top-1/2 -right-4 transform -translate-y-1/2">
+                    <ArrowRight className="w-8 h-8 text-primary" />
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Testimonials Section */}
+      <div className="py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-4xl font-bold text-center mb-16">Success Stories</h2>
+          <div className="grid md:grid-cols-3 gap-8">
+            {testimonials.map((testimonial, index) => (
+              <div
+                key={testimonial.author}
+                className="bg-white p-6 rounded-xl shadow-sm animate-fade-in"
+                style={{ animationDelay: `${index * 200}ms` }}
+              >
+                <img
+                  src={testimonial.image}
+                  alt={testimonial.author}
+                  className="w-20 h-20 rounded-full mx-auto mb-6 object-cover"
+                />
+                <p className="text-lg italic mb-4">{testimonial.quote}</p>
+                <p className="font-bold">{testimonial.author}</p>
+                <p className="text-sm text-charcoal-light">{testimonial.role}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Final CTA Section */}
+      <div className="bg-primary text-white py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-4xl font-bold mb-8">Start sharing, growing, and saving today!</h2>
+          <Link
+            to="/signup"
+            className="inline-block px-8 py-3 bg-white text-primary rounded-lg hover:bg-cream transition-colors"
+          >
+            Join Grovly Now
+          </Link>
         </div>
       </div>
     </div>
