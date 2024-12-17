@@ -1,10 +1,9 @@
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { MapPin, Mail, Phone } from 'lucide-react';
-import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { Database } from "@/integrations/supabase/types";
+import BasicInfoSection from "./form/BasicInfoSection";
+import ContactSection from "./form/ContactSection";
+import BioSection from "./form/BioSection";
+import PrivacySection from "./form/PrivacySection";
 
 type UserRole = Database['public']['Enums']['user_role'];
 
@@ -45,107 +44,30 @@ const ProfileForm = ({
 }: ProfileFormProps) => {
   return (
     <form onSubmit={onSubmit} className="space-y-6">
-      <div className="grid gap-6 md:grid-cols-2">
-        <div className="space-y-2">
-          <Label htmlFor="displayName">Display Name</Label>
-          <Input
-            id="displayName"
-            type="text"
-            value={displayName}
-            onChange={(e) => onDisplayNameChange(e.target.value)}
-            placeholder="Enter your display name"
-          />
-        </div>
+      <BasicInfoSection
+        displayName={displayName}
+        role={role}
+        onDisplayNameChange={onDisplayNameChange}
+        onRoleChange={onRoleChange}
+      />
 
-        <div className="space-y-2">
-          <Label>User Type</Label>
-          <ToggleGroup
-            type="single"
-            value={role}
-            onValueChange={(value: UserRole) => value && onRoleChange(value)}
-            className="justify-start"
-          >
-            <ToggleGroupItem value="farmer" className="capitalize">
-              Farmer
-            </ToggleGroupItem>
-            <ToggleGroupItem value="consumer" className="capitalize">
-              Consumer
-            </ToggleGroupItem>
-            <ToggleGroupItem value="business" className="capitalize">
-              Business
-            </ToggleGroupItem>
-          </ToggleGroup>
-        </div>
+      <ContactSection
+        location={location}
+        email={email}
+        phone={phone}
+        onLocationChange={onLocationChange}
+        onPhoneChange={onPhoneChange}
+      />
 
-        <div className="space-y-2">
-          <Label htmlFor="location">Location</Label>
-          <div className="relative">
-            <MapPin className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
-            <Input
-              id="location"
-              type="text"
-              value={location}
-              onChange={(e) => onLocationChange(e.target.value)}
-              placeholder="City, Country"
-              className="pl-10"
-            />
-          </div>
-        </div>
+      <BioSection
+        bio={bio}
+        onBioChange={onBioChange}
+      />
 
-        <div className="space-y-2 md:col-span-2">
-          <Label htmlFor="bio">Bio</Label>
-          <Textarea
-            id="bio"
-            value={bio}
-            onChange={(e) => onBioChange(e.target.value)}
-            placeholder="Tell us a bit about yourself..."
-            className="h-24"
-          />
-        </div>
-
-        <div className="space-y-2">
-          <Label htmlFor="email">Email</Label>
-          <div className="relative">
-            <Mail className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
-            <Input
-              id="email"
-              type="email"
-              value={email}
-              disabled
-              className="pl-10 bg-gray-50"
-            />
-          </div>
-        </div>
-
-        <div className="space-y-2">
-          <Label htmlFor="phone">Phone</Label>
-          <div className="relative">
-            <Phone className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
-            <Input
-              id="phone"
-              type="tel"
-              value={phone}
-              onChange={(e) => onPhoneChange(e.target.value)}
-              placeholder="Your phone number"
-              className="pl-10"
-            />
-          </div>
-        </div>
-
-        <div className="md:col-span-2">
-          <label className="flex items-center space-x-2">
-            <input
-              type="checkbox"
-              checked={showContactInfo}
-              onChange={(e) => onShowContactInfoChange(e.target.checked)}
-              className="rounded border-gray-300 text-primary focus:ring-primary"
-            />
-            <span className="text-sm text-gray-600">
-              Make my contact information visible to other users
-            </span>
-          </label>
-        </div>
-      </div>
+      <PrivacySection
+        showContactInfo={showContactInfo}
+        onShowContactInfoChange={onShowContactInfoChange}
+      />
 
       <Button type="submit" disabled={loading} className="w-full">
         {loading ? 'Updating...' : 'Update Profile'}
