@@ -5,10 +5,13 @@ import { useToast } from "@/components/ui/use-toast";
 import Navigation from '@/components/Navigation';
 import ProfileHeader from '@/components/profile/ProfileHeader';
 import ProfileForm from '@/components/profile/ProfileForm';
+import { Database } from '@/integrations/supabase/types';
+
+type UserRole = Database['public']['Enums']['user_role'];
 
 interface Profile {
   id: string;
-  role: 'farmer' | 'consumer' | 'business';
+  role: UserRole;
   display_name: string | null;
   bio: string | null;
   location: string | null;
@@ -27,6 +30,7 @@ const Profile = () => {
   const [location, setLocation] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
+  const [role, setRole] = useState<UserRole>('consumer');
   const [showContactInfo, setShowContactInfo] = useState(false);
   const navigate = useNavigate();
   const { toast } = useToast();
@@ -63,6 +67,7 @@ const Profile = () => {
         setBio(data.bio || '');
         setLocation(data.location || '');
         setPhone(data.phone || '');
+        setRole(data.role);
         setShowContactInfo(data.show_contact_info || false);
       }
     } catch (error: any) {
@@ -87,6 +92,7 @@ const Profile = () => {
           bio,
           location,
           phone,
+          role,
           show_contact_info: showContactInfo,
         })
         .eq('id', user.id);
@@ -132,7 +138,7 @@ const Profile = () => {
         <div className="bg-cream rounded-lg p-8 shadow-sm">
           <ProfileHeader
             displayName={displayName}
-            role={profile?.role}
+            role={role}
             getInitials={getInitials}
           />
           <ProfileForm
@@ -141,6 +147,7 @@ const Profile = () => {
             location={location}
             email={email}
             phone={phone}
+            role={role}
             showContactInfo={showContactInfo}
             loading={loading}
             onSubmit={updateProfile}
@@ -148,6 +155,7 @@ const Profile = () => {
             onBioChange={setBio}
             onLocationChange={setLocation}
             onPhoneChange={setPhone}
+            onRoleChange={setRole}
             onShowContactInfoChange={setShowContactInfo}
           />
         </div>

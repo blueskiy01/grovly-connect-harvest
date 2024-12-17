@@ -3,6 +3,10 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { MapPin, Mail, Phone } from 'lucide-react';
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+import { Database } from "@/integrations/supabase/types";
+
+type UserRole = Database['public']['Enums']['user_role'];
 
 interface ProfileFormProps {
   displayName: string;
@@ -10,6 +14,7 @@ interface ProfileFormProps {
   location: string;
   email: string;
   phone: string;
+  role: UserRole;
   showContactInfo: boolean;
   loading: boolean;
   onSubmit: (e: React.FormEvent) => Promise<void>;
@@ -17,6 +22,7 @@ interface ProfileFormProps {
   onBioChange: (value: string) => void;
   onLocationChange: (value: string) => void;
   onPhoneChange: (value: string) => void;
+  onRoleChange: (value: UserRole) => void;
   onShowContactInfoChange: (value: boolean) => void;
 }
 
@@ -26,6 +32,7 @@ const ProfileForm = ({
   location,
   email,
   phone,
+  role,
   showContactInfo,
   loading,
   onSubmit,
@@ -33,6 +40,7 @@ const ProfileForm = ({
   onBioChange,
   onLocationChange,
   onPhoneChange,
+  onRoleChange,
   onShowContactInfoChange,
 }: ProfileFormProps) => {
   return (
@@ -47,6 +55,26 @@ const ProfileForm = ({
             onChange={(e) => onDisplayNameChange(e.target.value)}
             placeholder="Enter your display name"
           />
+        </div>
+
+        <div className="space-y-2">
+          <Label>User Type</Label>
+          <ToggleGroup
+            type="single"
+            value={role}
+            onValueChange={(value: UserRole) => value && onRoleChange(value)}
+            className="justify-start"
+          >
+            <ToggleGroupItem value="farmer" className="capitalize">
+              Farmer
+            </ToggleGroupItem>
+            <ToggleGroupItem value="consumer" className="capitalize">
+              Consumer
+            </ToggleGroupItem>
+            <ToggleGroupItem value="business" className="capitalize">
+              Business
+            </ToggleGroupItem>
+          </ToggleGroup>
         </div>
 
         <div className="space-y-2">
