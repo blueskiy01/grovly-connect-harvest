@@ -31,10 +31,30 @@ const Browse = () => {
   useEffect(() => {
     const fetchListings = async () => {
       try {
-        const { data, error } = await supabase
+        setLoading(true);
+        let query = supabase
           .from('listings')
           .select('*')
           .eq('status', 'active');
+
+        // Apply filters if they are set
+        if (searchTerm) {
+          query = query.ilike('title', `%${searchTerm}%`);
+        }
+        if (produceType) {
+          query = query.eq('category', produceType);
+        }
+        if (resourceType) {
+          query = query.eq('type', resourceType);
+        }
+        if (location) {
+          query = query.ilike('location', `%${location}%`);
+        }
+        if (availability === 'immediate') {
+          query = query.lte('availability_date', new Date().toISOString());
+        }
+
+        const { data, error } = await query;
 
         if (error) throw error;
         
@@ -52,7 +72,7 @@ const Browse = () => {
     };
 
     fetchListings();
-  }, [toast]);
+  }, [searchTerm, produceType, resourceType, location, availability, toast]);
 
   return (
     <div className="min-h-screen bg-cream">
