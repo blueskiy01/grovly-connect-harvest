@@ -42,17 +42,17 @@ export const ListingFilters = ({
             placeholder="Search by crop, location, or resource"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="flex-1"
+            className="flex-1 bg-white"
           />
           <Button>Search</Button>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           <Select value={produceType} onValueChange={setProduceType}>
-            <SelectTrigger>
+            <SelectTrigger className="bg-white">
               <SelectValue placeholder="Produce Type" />
             </SelectTrigger>
-            <SelectContent>
+            <SelectContent className="bg-white z-50">
               <SelectItem value="all_produce">All Produce</SelectItem>
               <SelectItem value="vegetables">Vegetables</SelectItem>
               <SelectItem value="berries">Berries</SelectItem>
@@ -61,10 +61,10 @@ export const ListingFilters = ({
           </Select>
 
           <Select value={resourceType} onValueChange={setResourceType}>
-            <SelectTrigger>
+            <SelectTrigger className="bg-white">
               <SelectValue placeholder="Resource Type" />
             </SelectTrigger>
-            <SelectContent>
+            <SelectContent className="bg-white z-50">
               <SelectItem value="all_resources">All Resources</SelectItem>
               <SelectItem value="compost">Compost</SelectItem>
               <SelectItem value="animal-feed">Animal Feed</SelectItem>
@@ -73,10 +73,10 @@ export const ListingFilters = ({
           </Select>
 
           <Select value={location} onValueChange={setLocation}>
-            <SelectTrigger>
+            <SelectTrigger className="bg-white">
               <SelectValue placeholder="Location" />
             </SelectTrigger>
-            <SelectContent>
+            <SelectContent className="bg-white z-50">
               <SelectItem value="all_locations">All Locations</SelectItem>
               <SelectItem value="stockholm">Stockholm</SelectItem>
               <SelectItem value="gothenburg">Gothenburg</SelectItem>
@@ -85,10 +85,10 @@ export const ListingFilters = ({
           </Select>
 
           <Select value={availability} onValueChange={setAvailability}>
-            <SelectTrigger>
+            <SelectTrigger className="bg-white">
               <SelectValue placeholder="Availability" />
             </SelectTrigger>
-            <SelectContent>
+            <SelectContent className="bg-white z-50">
               <SelectItem value="all_availability">All Availability</SelectItem>
               <SelectItem value="immediate">Immediate</SelectItem>
               <SelectItem value="future">Future Harvest</SelectItem>
