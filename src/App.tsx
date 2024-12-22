@@ -10,6 +10,7 @@ import HowItWorks from '@/pages/HowItWorks';
 import About from '@/pages/About';
 import Contact from '@/pages/Contact';
 import Settings from '@/pages/Settings';
+import ListingForm from '@/pages/ListingForm';
 import { Toaster } from '@/components/ui/toaster';
 
 function App() {
@@ -27,6 +28,8 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/profile/:id/public" element={<PublicProfileView />} />
         <Route path="/settings" element={<Settings />} />
+        <Route path="/listings/new" element={<ListingForm />} />
+        <Route path="/listings/:id/edit" element={<ListingForm />} />
       </Routes>
       <Toaster />
     </Router>
