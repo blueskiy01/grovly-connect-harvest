@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { Database } from '@/integrations/supabase/types';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -21,6 +22,7 @@ const DashboardMetrics = ({ userId, role }: DashboardMetricsProps) => {
     preOrders: 0,
     impact: 0
   });
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchMetrics = async () => {
@@ -68,6 +70,10 @@ const DashboardMetrics = ({ userId, role }: DashboardMetricsProps) => {
     );
   }
 
+  const handleMetricClick = (type: string) => {
+    navigate(`/interactions/${type}`);
+  };
+
   const renderMetrics = () => {
     switch (role) {
       case 'farmer':
@@ -77,17 +83,20 @@ const DashboardMetrics = ({ userId, role }: DashboardMetricsProps) => {
               title="Current Listings"
               value={metrics.activeListings}
               description="Active listings on the platform"
+              onClick={() => handleMetricClick('listings')}
             />
             <MetricCard
               title="Total Interests"
               value={metrics.totalInterests}
               description="People interested in your listings"
+              onClick={() => handleMetricClick('interests')}
             />
             <MetricCard
               title="Resources Shared"
               value={metrics.resourcesShared}
               unit="kg"
               description="Total resources shared"
+              onClick={() => handleMetricClick('resources')}
             />
           </div>
         );
@@ -98,16 +107,19 @@ const DashboardMetrics = ({ userId, role }: DashboardMetricsProps) => {
               title="Saved Listings"
               value={metrics.savedListings}
               description="Listings you're interested in"
+              onClick={() => handleMetricClick('saved')}
             />
             <MetricCard
               title="Interests Shared"
               value={2}
               description="Crops you're looking for"
+              onClick={() => handleMetricClick('interests')}
             />
             <MetricCard
               title="Pre-orders Made"
               value={metrics.preOrders}
               description="Active pre-orders"
+              onClick={() => handleMetricClick('preorders')}
             />
           </div>
         );
@@ -118,12 +130,14 @@ const DashboardMetrics = ({ userId, role }: DashboardMetricsProps) => {
               title="Resources Listed"
               value={metrics.activeListings}
               description="Active resource listings"
+              onClick={() => handleMetricClick('listings')}
             />
             <MetricCard
               title="Impact"
               value={metrics.impact}
               unit="kg"
               description="Waste reused this month"
+              onClick={() => handleMetricClick('impact')}
             />
           </div>
         );
@@ -145,10 +159,14 @@ interface MetricCardProps {
   value: number;
   unit?: string;
   description: string;
+  onClick: () => void;
 }
 
-const MetricCard = ({ title, value, unit, description }: MetricCardProps) => (
-  <Card>
+const MetricCard = ({ title, value, unit, description, onClick }: MetricCardProps) => (
+  <Card 
+    className="cursor-pointer hover:shadow-md transition-shadow"
+    onClick={onClick}
+  >
     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
       <CardTitle className="text-sm font-medium">{title}</CardTitle>
     </CardHeader>

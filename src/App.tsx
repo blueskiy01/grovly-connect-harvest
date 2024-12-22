@@ -13,6 +13,7 @@ import Settings from '@/pages/Settings';
 import ListingForm from '@/pages/ListingForm';
 import ListingDetails from '@/pages/ListingDetails';
 import Messages from '@/pages/Messages';
+import UserInteractions from '@/pages/UserInteractions';
 import Footer from '@/components/Footer';
 import { Toaster } from '@/components/ui/toaster';
 
@@ -38,6 +39,7 @@ function App() {
           <Route path="/looking-for/new" element={<ListingForm />} />
           <Route path="/looking-for/:id" element={<ListingDetails />} />
           <Route path="/messages" element={<Messages />} />
+          <Route path="/interactions/:type" element={<UserInteractions />} />
         </Routes>
         <Footer />
         <Toaster />
