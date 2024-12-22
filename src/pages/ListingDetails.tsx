@@ -3,9 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import Navigation from '@/components/Navigation';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
-import { Heart } from 'lucide-react';
 import ListingHeader from '@/components/listings/ListingHeader';
 import ListingInfo from '@/components/listings/ListingInfo';
 import ListerInfo from '@/components/listings/ListerInfo';
@@ -172,7 +170,7 @@ const ListingDetails = () => {
 
             <ListingHeader
               title={listing.title}
-              image={listing.image}
+              image={listing.image || '/placeholder.svg'}
               availability={listing.availability_date ? new Date(listing.availability_date).toLocaleDateString() : 'Available Now'}
               category={listing.category}
             />
@@ -196,18 +194,6 @@ const ListingDetails = () => {
               showContactInfo={listing.profiles?.show_contact_info}
               onContactClick={handleContactSeller}
             />
-
-            {/* Similar Listings */}
-            <Card>
-              <CardContent className="p-6">
-                <h3 className="font-semibold mb-4">Similar Listings</h3>
-                <div className="space-y-4">
-                  <p className="text-sm text-muted-foreground">
-                    More listings coming soon...
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
           </div>
         </div>
       </main>

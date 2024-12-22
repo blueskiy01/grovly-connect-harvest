@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Navigation from '../components/Navigation';
 import { Input } from '@/components/ui/input';
@@ -12,15 +12,18 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { MapPin, Calendar, Box } from 'lucide-react';
+import { supabase } from '@/integrations/supabase/client';
+import { useToast } from '@/hooks/use-toast';
 
 interface Listing {
   id: string;
   title: string;
-  category: 'Produce' | 'Waste Resource';
-  location: string;
-  quantity: string;
-  availability: string;
-  image: string;
+  category: string;
+  location: string | null;
+  quantity: number | null;
+  unit: string | null;
+  availability_date: string | null;
+  image?: string;
 }
 
 const Browse = () => {
@@ -29,37 +32,59 @@ const Browse = () => {
   const [resourceType, setResourceType] = useState('');
   const [location, setLocation] = useState('');
   const [availability, setAvailability] = useState('');
+  const [listings, setListings] = useState<Listing[]>([]);
+  const [loading, setLoading] = useState(true);
+  const { toast } = useToast();
 
-  // Mock data with proper UUID format
-  const listings: Listing[] = [
-    {
-      id: '123e4567-e89b-12d3-a456-426614174000',
-      title: 'Fresh Garlic for Pre-Order',
-      category: 'Produce',
-      location: 'San Francisco, CA',
-      quantity: '10kg available',
-      availability: 'September 2024',
-      image: '/placeholder.svg',
-    },
-    {
-      id: '987fcdeb-51a2-43d8-b456-426614174001',
-      title: 'Coffee Grounds for Composting',
-      category: 'Waste Resource',
-      location: 'Berkeley, CA',
-      quantity: '5kg weekly',
-      availability: 'Immediate',
-      image: '/placeholder.svg',
-    },
-    {
-      id: '456e789a-b12c-34d5-e678-426614174002',
-      title: 'Heirloom Tomatoes',
-      category: 'Produce',
-      location: 'Oakland, CA',
-      quantity: '15kg available',
-      availability: 'August 2024',
-      image: '/placeholder.svg',
-    },
-  ];
+  useEffect(() => {
+    const fetchListings = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('listings')
+          .select('*')
+          .eq('status', 'active');
+
+        if (error) throw error;
+        
+        setListings(data || []);
+      } catch (error: any) {
+        console.error('Error fetching listings:', error);
+        toast({
+          variant: "destructive",
+          title: "Error",
+          description: "Failed to load listings. Please try again.",
+        });
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchListings();
+  }, [toast]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-cream">
+        <Navigation />
+        <main className="container mx-auto px-4 pt-24">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[1, 2, 3].map((i) => (
+              <Card key={i} className="overflow-hidden">
+                <div className="w-full h-48 bg-gray-200 animate-pulse" />
+                <CardContent className="p-4">
+                  <div className="h-6 bg-gray-200 w-3/4 mb-2 animate-pulse" />
+                  <div className="space-y-2">
+                    <div className="h-4 bg-gray-200 w-1/2 animate-pulse" />
+                    <div className="h-4 bg-gray-200 w-2/3 animate-pulse" />
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </main>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-cream">
@@ -134,7 +159,7 @@ const Browse = () => {
           {listings.map((listing) => (
             <Card key={listing.id} className="overflow-hidden hover:shadow-md transition-shadow">
               <img
-                src={listing.image}
+                src={listing.image || '/placeholder.svg'}
                 alt={listing.title}
                 className="w-full h-48 object-cover"
               />
@@ -146,18 +171,24 @@ const Browse = () => {
                   </span>
                 </div>
                 <div className="space-y-2 text-sm text-muted-foreground">
-                  <div className="flex items-center gap-2">
-                    <MapPin className="w-4 h-4" />
-                    <span>{listing.location}</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Box className="w-4 h-4" />
-                    <span>{listing.quantity}</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Calendar className="w-4 h-4" />
-                    <span>{listing.availability}</span>
-                  </div>
+                  {listing.location && (
+                    <div className="flex items-center gap-2">
+                      <MapPin className="w-4 h-4" />
+                      <span>{listing.location}</span>
+                    </div>
+                  )}
+                  {listing.quantity && listing.unit && (
+                    <div className="flex items-center gap-2">
+                      <Box className="w-4 h-4" />
+                      <span>{listing.quantity} {listing.unit} available</span>
+                    </div>
+                  )}
+                  {listing.availability_date && (
+                    <div className="flex items-center gap-2">
+                      <Calendar className="w-4 h-4" />
+                      <span>{new Date(listing.availability_date).toLocaleDateString()}</span>
+                    </div>
+                  )}
                 </div>
               </CardContent>
               <CardFooter className="p-4 pt-0">
