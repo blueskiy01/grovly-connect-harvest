@@ -12,7 +12,7 @@ interface ListingHeaderProps {
 const ListingHeader = ({ title, category, type, image, listingId }: ListingHeaderProps) => {
   return (
     <div>
-      <div className="aspect-video relative rounded-lg overflow-hidden bg-cream flex items-center justify-center">
+      <div className="max-w-2xl mx-auto aspect-video relative rounded-lg overflow-hidden bg-cream flex items-center justify-center">
         <span className="font-fraunces text-4xl font-bold text-primary">
           Grovly
         </span>
