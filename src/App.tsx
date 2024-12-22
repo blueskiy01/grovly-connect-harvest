@@ -16,6 +16,8 @@ import LookingForDetails from '@/pages/LookingForDetails';
 import Messages from '@/pages/Messages';
 import UserInteractions from '@/pages/UserInteractions';
 import Footer from '@/components/Footer';
+import PrivacyPolicy from '@/pages/PrivacyPolicy';
+import TermsAndConditions from '@/pages/TermsAndConditions';
 import { Toaster } from '@/components/ui/toaster';
 
 function App() {
@@ -42,6 +44,8 @@ function App() {
           <Route path="/looking-for/:id" element={<LookingForDetails />} />
           <Route path="/messages" element={<Messages />} />
           <Route path="/interactions/:type" element={<UserInteractions />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
         </Routes>
         <Footer />
         <Toaster />

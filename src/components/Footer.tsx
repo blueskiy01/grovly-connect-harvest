@@ -37,11 +37,11 @@ const Footer = () => {
           <div className="space-y-4">
             <h3 className="font-fraunces font-semibold text-lg">Resources</h3>
             <nav className="flex flex-col space-y-2">
-              <Link to="/privacy" className="text-charcoal-light hover:text-primary transition-colors flex items-center gap-2">
+              <Link to="/privacy-policy" className="text-charcoal-light hover:text-primary transition-colors flex items-center gap-2">
                 <FileText size={16} />
                 Privacy Policy
               </Link>
-              <Link to="/terms" className="text-charcoal-light hover:text-primary transition-colors flex items-center gap-2">
+              <Link to="/terms-and-conditions" className="text-charcoal-light hover:text-primary transition-colors flex items-center gap-2">
                 <FileText size={16} />
                 Terms of Service
               </Link>
