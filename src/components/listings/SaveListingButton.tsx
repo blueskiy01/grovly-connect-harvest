@@ -22,7 +22,7 @@ const SaveListingButton = ({ listingId }: SaveListingButtonProps) => {
         .select()
         .eq('user_id', session.user.id)
         .eq('listing_id', listingId)
-        .single();
+        .maybeSingle();
 
       setIsSaved(!!data);
     };
