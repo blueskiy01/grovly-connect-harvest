@@ -50,18 +50,9 @@ const Footer = () => {
           <div className="space-y-4">
             <h3 className="font-fraunces font-semibold text-lg">Connect With Us</h3>
             <div className="flex space-x-4">
-              <a href="https://twitter.com/grovly" target="_blank" rel="noopener noreferrer" className="text-charcoal-light hover:text-primary transition-colors">
-                <span className="sr-only">Twitter</span>
-                <Globe className="h-6 w-6" />
-              </a>
-              <a href="https://facebook.com/grovly" target="_blank" rel="noopener noreferrer" className="text-charcoal-light hover:text-primary transition-colors">
-                <span className="sr-only">Facebook</span>
-                <Users className="h-6 w-6" />
-              </a>
-              <a href="https://instagram.com/grovly" target="_blank" rel="noopener noreferrer" className="text-charcoal-light hover:text-primary transition-colors">
-                <span className="sr-only">Instagram</span>
-                <Mail className="h-6 w-6" />
-              </a>
+              <Globe className="h-6 w-6 text-charcoal-light hover:text-primary transition-colors cursor-pointer" />
+              <Users className="h-6 w-6 text-charcoal-light hover:text-primary transition-colors cursor-pointer" />
+              <Mail className="h-6 w-6 text-charcoal-light hover:text-primary transition-colors cursor-pointer" />
             </div>
           </div>
 
