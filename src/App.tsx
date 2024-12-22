@@ -12,6 +12,7 @@ import Contact from '@/pages/Contact';
 import Settings from '@/pages/Settings';
 import ListingForm from '@/pages/ListingForm';
 import ListingDetails from '@/pages/ListingDetails';
+import LookingForDetails from '@/pages/LookingForDetails';
 import Messages from '@/pages/Messages';
 import UserInteractions from '@/pages/UserInteractions';
 import Footer from '@/components/Footer';
@@ -37,7 +38,7 @@ function App() {
           <Route path="/listings/new" element={<ListingForm />} />
           <Route path="/listings/:id/edit" element={<ListingForm />} />
           <Route path="/looking-for/new" element={<ListingForm />} />
-          <Route path="/looking-for/:id" element={<ListingDetails />} />
+          <Route path="/looking-for/:id" element={<LookingForDetails />} />
           <Route path="/messages" element={<Messages />} />
           <Route path="/interactions/:type" element={<UserInteractions />} />
         </Routes>
