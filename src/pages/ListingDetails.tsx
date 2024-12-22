@@ -20,6 +20,11 @@ const ListingDetails = () => {
   useEffect(() => {
     const fetchListing = async () => {
       try {
+        // Validate UUID format
+        if (!id?.match(/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i)) {
+          throw new Error('Invalid listing ID format');
+        }
+
         const { data, error } = await supabase
           .from('listings')
           .select(`
@@ -33,16 +38,26 @@ const ListingDetails = () => {
             )
           `)
           .eq('id', id)
-          .single();
+          .maybeSingle();
 
         if (error) throw error;
+        
+        if (!data) {
+          toast({
+            variant: "destructive",
+            title: "Not found",
+            description: "This listing could not be found.",
+          });
+          return;
+        }
+        
         setListing(data);
-      } catch (error) {
+      } catch (error: any) {
         console.error('Error fetching listing:', error);
         toast({
           variant: "destructive",
           title: "Error",
-          description: "Failed to load listing details.",
+          description: error.message || "Failed to load listing details.",
         });
       } finally {
         setLoading(false);

@@ -30,10 +30,10 @@ const Browse = () => {
   const [location, setLocation] = useState('');
   const [availability, setAvailability] = useState('');
 
-  // Mock data for demonstration
+  // Mock data with proper UUID format
   const listings: Listing[] = [
     {
-      id: '1',
+      id: '123e4567-e89b-12d3-a456-426614174000',
       title: 'Fresh Garlic for Pre-Order',
       category: 'Produce',
       location: 'San Francisco, CA',
@@ -42,7 +42,7 @@ const Browse = () => {
       image: '/placeholder.svg',
     },
     {
-      id: '2',
+      id: '987fcdeb-51a2-43d8-b456-426614174001',
       title: 'Coffee Grounds for Composting',
       category: 'Waste Resource',
       location: 'Berkeley, CA',
@@ -51,7 +51,7 @@ const Browse = () => {
       image: '/placeholder.svg',
     },
     {
-      id: '3',
+      id: '456e789a-b12c-34d5-e678-426614174002',
       title: 'Heirloom Tomatoes',
       category: 'Produce',
       location: 'Oakland, CA',
