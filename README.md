@@ -1,7 +1,21 @@
+<div align="center">
 # **Grovly**  
 A platform connecting farmers, consumers, and businesses to reduce waste, share resources, and grow together sustainably. Grovly fosters local, circular economies by enabling users to list produce, express interest in niche crops, and repurpose reusable resources.
 
----
+<img src="Grovly_0.png" alt="Preview of the application" width="400">
+<img src="Grovly_1.png" alt="Another preview of the application" width="400" height="230">
+
+## **Technologies Used**
+
+![React](https://img.shields.io/badge/Frontend-React-61DAFB?logo=react&logoColor=white&style=flat-square)  
+![Node.js](https://img.shields.io/badge/Backend-Node.js-339933?logo=node.js&logoColor=white&style=flat-square)  
+![PostgreSQL](https://img.shields.io/badge/Database-PostgreSQL-336791?logo=postgresql&logoColor=white&style=flat-square)  
+![Supabase](https://img.shields.io/badge/Authentication-Supabase-3ECF8E?logo=supabase&logoColor=white&style=flat-square)  
+![Vercel](https://img.shields.io/badge/Hosting-Vercel-000000?logo=vercel&logoColor=white&style=flat-square)  
+![Netlify](https://img.shields.io/badge/Hosting-Netlify-00C7B7?logo=netlify&logoColor=white&style=flat-square)  
+![Tailwind CSS](https://img.shields.io/badge/Styling-Tailwind%20CSS-06B6D4?logo=tailwindcss&logoColor=white&style=flat-square)  
+</div>
+<!-- start-intro -->
 
 ## **Features**  
 - **Farmers**:  
@@ -15,23 +29,12 @@ A platform connecting farmers, consumers, and businesses to reduce waste, share 
   - Pre-order seasonal items.  
 
 - **Businesses**:  
-  - Share reusable resources (e.g., coffee grounds, compost materials).  
+  - Share reusable resources (e.g coffee grounds, compost materials).  
   - Collaborate with local farmers for sustainability.  
 
 ---
-
-## **Technologies Used**  
-- **Frontend**: React.js  
-- **Backend**: Node.js (Express.js)  
-- **Database**: PostgreSQL  
-- **Authentication**: Supabase Auth  
-- **Hosting**: Vercel / Netlify (for frontend)  
-- **Styling**: Tailwind CSS  
-
----
-
-## **Getting Started**  
-
+## **Getting Started** 
+ 
 ### **Prerequisites**  
 Make sure you have the following installed:  
 - [Node.js](https://nodejs.org/) (v14 or higher)  
@@ -93,6 +96,17 @@ git commit -m "Add your message here"
 ## **License**  
 This project is licensed under the MIT License. See the LICENSE file for details.
 
+## Citation
+If you build upon Grovly, please use the following citation:
+```BibTeX
+@misc{Grovly,
+    title = Grovly},
+    author = {Korin Lim},
+    year = {2025},
+    howpublished = {\url{(https://github.com/blueskiy01/grovly-connect-harvest}},
+}
+```
+
 ## **Contact**  
 For questions or support, contact us at:  
 -GitHub Issues: [Submit an issue](https://github.com/blueskiy01/grovly-connect-harvest/issues)
@@ -101,3 +115,6 @@ For questions or support, contact us at:
 -Mobile app for Android and iOS.
 -Advanced analytics for farmers and businesses.
 -Integration with third-party delivery services.
+
+## Changelogs
+Stay up to date with the latest changes and improvements: [View Changelogs]([https://github.com/digi-regeringen-ax/AlexGPT-2](https://github.com/blueskiy01/grovly-connect-harvest/releases).
