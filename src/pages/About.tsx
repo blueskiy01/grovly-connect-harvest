@@ -39,7 +39,7 @@ const About = () => {
             </div>
             <div className="relative h-64 rounded-lg overflow-hidden">
               <img 
-                src="/media/farm_field.png" 
+                src="../media/farm_field.png" 
                 alt="Beautiful farm field" 
                 className="object-cover w-full h-full"
               />
@@ -75,7 +75,7 @@ const About = () => {
           <div className="grid md:grid-cols-2 gap-8 items-center">
             <div className="relative h-64 rounded-lg overflow-hidden">
               <img 
-                src="/media/garlic_farm.png" 
+                src="../media/garlic_farm.png" 
                 alt="Garlic Farm" 
                 className="object-cover w-full h-full"
               />
