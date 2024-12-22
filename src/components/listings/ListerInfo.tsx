@@ -1,13 +1,12 @@
 import { useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
-import { MapPin, MessageCircle, Star, ChevronRight } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 import { useNavigate } from 'react-router-dom';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
-import { Textarea } from '@/components/ui/textarea';
+import ProfilePreview from './profile/ProfilePreview';
+import MessageDialog from './message/MessageDialog';
+import ContactButtons from './profile/ContactButtons';
 
 interface ListerInfoProps {
   profile: {
@@ -91,77 +90,31 @@ const ListerInfo = ({ profile, listingId }: ListerInfoProps) => {
     <>
       <Card>
         <CardContent className="p-6 space-y-4">
-          <div className="flex items-center gap-4">
-            <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-              <span className="text-lg font-semibold text-primary">
-                {profile.display_name?.[0] || 'U'}
-              </span>
-            </div>
-            <div>
-              <h3 className="font-semibold">{profile.display_name || 'User'}</h3>
-              <div className="flex items-center gap-1 text-muted-foreground">
-                <Star className="h-4 w-4" />
-                <span>4.8</span>
-                <span className="text-sm">(12 reviews)</span>
-              </div>
-            </div>
-          </div>
-
+          <ProfilePreview
+            displayName={profile.display_name}
+            bio={profile.bio}
+            location={profile.location}
+            phone={profile.phone}
+            showContactInfo={profile.show_contact_info}
+          />
+          
           <Separator />
-
-          <div className="space-y-2">
-            <p className="text-sm text-muted-foreground">{profile.bio}</p>
-            {profile.show_contact_info && (
-              <>
-                <p className="text-sm">
-                  <MapPin className="h-4 w-4 inline mr-2" />
-                  {profile.location}
-                </p>
-                {profile.phone && (
-                  <p className="text-sm">
-                    <span className="font-medium">Phone:</span> {profile.phone}
-                  </p>
-                )}
-              </>
-            )}
-          </div>
-
-          <div className="space-y-3">
-            <Button className="w-full" onClick={handleContactSeller}>
-              <MessageCircle className="mr-2 h-4 w-4" />
-              Contact Seller
-            </Button>
-            <Button variant="outline" className="w-full" onClick={handleViewProfile}>
-              View Profile
-              <ChevronRight className="ml-2 h-4 w-4" />
-            </Button>
-          </div>
+          
+          <ContactButtons
+            onContact={handleContactSeller}
+            onViewProfile={handleViewProfile}
+          />
         </CardContent>
       </Card>
 
-      <Dialog open={isMessageDialogOpen} onOpenChange={setIsMessageDialogOpen}>
-        <DialogContent className="bg-background border shadow-lg">
-          <DialogHeader>
-            <DialogTitle className="text-foreground">Send Message to {profile.display_name}</DialogTitle>
-          </DialogHeader>
-          <div className="py-4">
-            <Textarea
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-              placeholder="Write your message here..."
-              className="min-h-[100px] bg-background text-foreground"
-            />
-          </div>
-          <DialogFooter>
-            <Button variant="outline" onClick={() => setIsMessageDialogOpen(false)}>
-              Cancel
-            </Button>
-            <Button onClick={handleSendMessage}>
-              Send Message
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+      <MessageDialog
+        isOpen={isMessageDialogOpen}
+        onOpenChange={setIsMessageDialogOpen}
+        recipientName={profile.display_name}
+        message={message}
+        onMessageChange={setMessage}
+        onSend={handleSendMessage}
+      />
     </>
   );
 };
