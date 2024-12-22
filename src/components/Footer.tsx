@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Home, Globe, Mail, Users, FileText } from 'lucide-react';
+import { Home, Globe, Mail, Book, Search, Users, FileText } from 'lucide-react';
 
 const Footer = () => {
   return (
@@ -14,12 +14,6 @@ const Footer = () => {
                 <Home size={16} />
                 Home
               </Link>
-              <Link to="/how-it-works" className="text-charcoal-light hover:text-primary transition-colors">
-                How It Works
-              </Link>
-              <Link to="/browse" className="text-charcoal-light hover:text-primary transition-colors">
-                Browse Listings
-              </Link>
               <Link to="/about" className="text-charcoal-light hover:text-primary transition-colors flex items-center gap-2">
                 <Globe size={16} />
                 About
@@ -27,6 +21,14 @@ const Footer = () => {
               <Link to="/contact" className="text-charcoal-light hover:text-primary transition-colors flex items-center gap-2">
                 <Mail size={16} />
                 Contact
+              </Link>
+              <Link to="/how-it-works" className="text-charcoal-light hover:text-primary transition-colors flex items-center gap-2">
+                <Book size={16} />
+                How It Works
+              </Link>
+              <Link to="/browse" className="text-charcoal-light hover:text-primary transition-colors flex items-center gap-2">
+                <Search size={16} />
+                Browse Listings
               </Link>
             </nav>
           </div>
