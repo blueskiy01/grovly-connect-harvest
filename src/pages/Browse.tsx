@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import Navigation from '../components/Navigation';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -160,9 +161,11 @@ const Browse = () => {
                 </div>
               </CardContent>
               <CardFooter className="p-4 pt-0">
-                <Button className="w-full" variant="outline">
-                  View Details
-                </Button>
+                <Link to={`/listings/${listing.id}`} className="w-full">
+                  <Button className="w-full" variant="outline">
+                    View Details
+                  </Button>
+                </Link>
               </CardFooter>
             </Card>
           ))}
