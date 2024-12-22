@@ -4,7 +4,6 @@ import { useToast } from "@/components/ui/use-toast";
 import MapLoader from './map/MapLoader';
 import MapMarker from './map/MapMarker';
 import { useMapInitialization } from '@/hooks/useMapInitialization';
-import mapboxgl from 'mapbox-gl';
 
 const HomeMap = () => {
   const [listings, setListings] = useState<any[]>([]);
@@ -42,10 +41,12 @@ const HomeMap = () => {
         if (!listing.location) continue;
 
         try {
+          const { data: { token } } = await supabase.functions.invoke('get-mapbox-token');
+          
           const response = await fetch(
             `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(
               listing.location
-            )}.json?access_token=${process.env.MAPBOX_PUBLIC_TOKEN || ''}`
+            )}.json?access_token=${token}`
           );
           
           if (!response.ok) {

@@ -19,7 +19,7 @@ export const useMapInitialization = () => {
           container: mapContainer.current,
           style: 'mapbox://styles/mapbox/light-v11',
           center: [15.5, 62.8],
-          zoom: 8,
+          zoom: 6, // Updated zoom level from 8 to 6
           pitchWithRotate: false,
         });
 
