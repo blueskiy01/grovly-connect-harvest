@@ -3,36 +3,39 @@
   <p>A platform connecting farmers, consumers, and businesses to reduce waste, share resources, and grow together sustainably. Grovly fosters local, circular economies by enabling users to list produce, exchange goods, and connect for mutual benefit.</p>
 
   <img src="Grovly_0.png" alt="Preview of the application" width="400">
-  <img src="Grovly_1.png" alt="Another preview of the application" width="400" height="230">
+  <img src="Grovly_1.png" alt="Another preview of the application" width="400" height="300">
 
-  ## Technologies Used
-
-  ![React](https://img.shields.io/badge/Frontend-React-61DAFB?logo=react&logoColor=white&style=flat-square)  
-  ![Node.js](https://img.shields.io/badge/Backend-Node.js-339933?logo=node.js&logoColor=white&style=flat-square)  
-  ![PostgreSQL](https://img.shields.io/badge/Database-PostgreSQL-336791?logo=postgresql&logoColor=white&style=flat-square)  
-  ![Supabase](https://img.shields.io/badge/Authentication-Supabase-3ECF8E?logo=supabase&logoColor=white&style=flat-square)  
-  ![Vercel](https://img.shields.io/badge/Hosting-Vercel-000000?logo=vercel&logoColor=white&style=flat-square)  
-  ![Netlify](https://img.shields.io/badge/Hosting-Netlify-00C7B7?logo=netlify&logoColor=white&style=flat-square)  
-  ![Tailwind CSS](https://img.shields.io/badge/Styling-Tailwind%20CSS-06B6D4?logo=tailwindcss&logoColor=white&style=flat-square)  
+  ![React](https://img.shields.io/badge/Frontend-React-61DAFB?logo=react&logoColor=white&style=flat-square)   ![Node.js](https://img.shields.io/badge/Backend-Node.js-339933?logo=node.js&logoColor=white&style=flat-square)   ![PostgreSQL](https://img.shields.io/badge/Database-PostgreSQL-336791?logo=postgresql&logoColor=white&style=flat-square)  ![Supabase](https://img.shields.io/badge/Authentication-Supabase-3ECF8E?logo=supabase&logoColor=white&style=flat-square)  ![Vercel](https://img.shields.io/badge/Hosting-Vercel-000000?logo=vercel&logoColor=white&style=flat-square)  ![Netlify](https://img.shields.io/badge/Hosting-Netlify-00C7B7?logo=netlify&logoColor=white&style=flat-square)  ![Tailwind CSS](https://img.shields.io/badge/Styling-Tailwind%20CSS-06B6D4?logo=tailwindcss&logoColor=white&style=flat-square)  
 </div>
+
+### **Table of Contents**  
+1. [Features](#features)  
+2. [Getting Started](#getting-started)  
+   - [Prerequisites](#prerequisites)  
+   - [Setup](#setup)  
+3. [Contributing](#contributing)  
+4. [License](#license)  
+5. [Citation](#citation)  
+6. [Contact](#contact)  
+7. [Future Enhancements](#future-enhancements)  
+8. [Changelogs](#changelogs)  
 
 ## Features
 
-- **Farmers**:  
+ **Farmers**:  
   - List surplus produce or planned harvests.  
   - Gain insights into demand for specific crops.  
   - Connect with businesses for resource-sharing opportunities.  
 
-- **Consumers**:  
+ **Consumers**:  
   - Discover fresh, local produce.  
   - Express interest in niche crops to influence farming decisions.  
   - Pre-order seasonal items.  
 
-- **Businesses**:  
+ **Businesses**:  
   - Share reusable resources (e.g., coffee grounds, compost materials).  
   - Collaborate with local farmers for sustainability.  
 
----
 
 ## Getting Started
 
@@ -40,7 +43,7 @@
 
 Make sure you have the following installed:  
 - [Node.js](https://nodejs.org/) (v14 or higher)  
-- npm or yarn  
+- `npm` or `yarn`  
 - [Supabase CLI](https://supabase.com/docs/guides/cli)  
 
 ### Setup
