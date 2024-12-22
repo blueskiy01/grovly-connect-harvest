@@ -140,16 +140,16 @@ const ListerInfo = ({ profile, listingId }: ListerInfoProps) => {
       </Card>
 
       <Dialog open={isMessageDialogOpen} onOpenChange={setIsMessageDialogOpen}>
-        <DialogContent>
+        <DialogContent className="bg-background border shadow-lg">
           <DialogHeader>
-            <DialogTitle>Send Message to {profile.display_name}</DialogTitle>
+            <DialogTitle className="text-foreground">Send Message to {profile.display_name}</DialogTitle>
           </DialogHeader>
           <div className="py-4">
             <Textarea
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               placeholder="Write your message here..."
-              className="min-h-[100px]"
+              className="min-h-[100px] bg-background text-foreground"
             />
           </div>
           <DialogFooter>
