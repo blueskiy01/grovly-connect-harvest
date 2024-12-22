@@ -1,4 +1,5 @@
 import { ThemeSupa } from '@supabase/auth-ui-shared';
+import { Provider } from '@supabase/supabase-js';
 
 export const authConfig = {
   appearance: {
@@ -39,5 +40,5 @@ export const authConfig = {
       },
     },
   },
-  providers: ['google'],
+  providers: ['google' as Provider],
 };
