@@ -3,23 +3,27 @@ import { useParams } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import Navigation from '@/components/Navigation';
 import { ListingCard } from '@/components/listings/ListingCard';
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Loader2 } from 'lucide-react';
 import { Listing } from '@/types/listings';
+import type { LookingForRequest } from '@/types/looking-for';
 
 const UserInteractions = () => {
   const [savedListings, setSavedListings] = useState<Listing[]>([]);
+  const [interests, setInterests] = useState<LookingForRequest[]>([]);
+  const [preOrders, setPreOrders] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const { type } = useParams();
 
   useEffect(() => {
-    const fetchSavedListings = async () => {
+    const fetchData = async () => {
       try {
         setLoading(true);
         const { data: { session } } = await supabase.auth.getSession();
         if (!session) return;
 
+        // Fetch saved listings
         const { data: savedListingsData, error: savedError } = await supabase
           .from('saved_listings')
           .select('listing_id')
@@ -38,14 +42,46 @@ const UserInteractions = () => {
           if (listingsError) throw listingsError;
           setSavedListings(listings || []);
         }
+
+        // Fetch interests (looking_for_requests)
+        const { data: interestsData, error: interestsError } = await supabase
+          .from('looking_for_requests')
+          .select(`
+            *,
+            profiles(display_name)
+          `)
+          .eq('user_id', session.user.id)
+          .eq('status', 'active');
+
+        if (interestsError) throw interestsError;
+        setInterests(interestsData || []);
+
+        // Fetch pre-orders (looking_for_offers where user is the creator)
+        const { data: preOrdersData, error: preOrdersError } = await supabase
+          .from('looking_for_offers')
+          .select(`
+            *,
+            looking_for_requests (
+              title,
+              description,
+              category,
+              quantity,
+              unit
+            )
+          `)
+          .eq('user_id', session.user.id);
+
+        if (preOrdersError) throw preOrdersError;
+        setPreOrders(preOrdersData || []);
+
       } catch (error) {
-        console.error('Error fetching saved listings:', error);
+        console.error('Error fetching data:', error);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchSavedListings();
+    fetchData();
   }, []);
 
   if (loading) {
@@ -89,25 +125,61 @@ const UserInteractions = () => {
           </TabsContent>
 
           <TabsContent value="interests">
-            <Card>
-              <CardHeader>
-                <CardTitle>Interests Shared</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">Feature coming soon</p>
-              </CardContent>
-            </Card>
+            {interests.length === 0 ? (
+              <Card>
+                <CardContent className="flex flex-col items-center justify-center p-6">
+                  <p className="text-muted-foreground">No interests shared yet</p>
+                </CardContent>
+              </Card>
+            ) : (
+              <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                {interests.map((interest) => (
+                  <Card key={interest.id} className="p-6">
+                    <h3 className="text-lg font-semibold mb-2">{interest.title}</h3>
+                    <p className="text-sm text-muted-foreground mb-4">{interest.description}</p>
+                    <div className="flex justify-between text-sm">
+                      <span>Category: {interest.category}</span>
+                      {interest.quantity && (
+                        <span>
+                          {interest.quantity} {interest.unit}
+                        </span>
+                      )}
+                    </div>
+                  </Card>
+                ))}
+              </div>
+            )}
           </TabsContent>
 
           <TabsContent value="preorders">
-            <Card>
-              <CardHeader>
-                <CardTitle>Pre-orders</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground">Feature coming soon</p>
-              </CardContent>
-            </Card>
+            {preOrders.length === 0 ? (
+              <Card>
+                <CardContent className="flex flex-col items-center justify-center p-6">
+                  <p className="text-muted-foreground">No pre-orders made yet</p>
+                </CardContent>
+              </Card>
+            ) : (
+              <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                {preOrders.map((order) => (
+                  <Card key={order.id} className="p-6">
+                    <h3 className="text-lg font-semibold mb-2">
+                      {order.looking_for_requests.title}
+                    </h3>
+                    <p className="text-sm text-muted-foreground mb-4">
+                      {order.looking_for_requests.description}
+                    </p>
+                    <div className="flex justify-between text-sm">
+                      <span>Status: {order.status}</span>
+                      {order.looking_for_requests.quantity && (
+                        <span>
+                          {order.looking_for_requests.quantity} {order.looking_for_requests.unit}
+                        </span>
+                      )}
+                    </div>
+                  </Card>
+                ))}
+              </div>
+            )}
           </TabsContent>
         </Tabs>
       </div>
