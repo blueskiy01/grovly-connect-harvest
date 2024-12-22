@@ -2,21 +2,25 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { MapPin, MessageCircle, Star, ChevronRight } from 'lucide-react';
-import { useToast } from '@/hooks/use-toast';
+import { useToast } from '@/components/ui/use-toast';
 import { supabase } from '@/integrations/supabase/client';
+import { useNavigate } from 'react-router-dom';
 
 interface ListerInfoProps {
   profile: {
+    id: string;
     display_name: string | null;
     bio: string | null;
     location: string | null;
     phone: string | null;
     show_contact_info: boolean | null;
   };
+  listingId: string;
 }
 
-const ListerInfo = ({ profile }: ListerInfoProps) => {
+const ListerInfo = ({ profile, listingId }: ListerInfoProps) => {
   const { toast } = useToast();
+  const navigate = useNavigate();
 
   const handleContactSeller = async () => {
     try {
@@ -25,17 +29,43 @@ const ListerInfo = ({ profile }: ListerInfoProps) => {
         toast({
           title: "Authentication required",
           description: "Please log in to contact sellers.",
+          variant: "destructive",
         });
+        navigate('/login');
         return;
       }
 
+      // Create a new message thread
+      const { error } = await supabase
+        .from('messages')
+        .insert({
+          sender_id: session.user.id,
+          recipient_id: profile.id,
+          listing_id: listingId,
+          content: `Hi! I'm interested in your listing.`,
+        });
+
+      if (error) throw error;
+
       toast({
-        title: "Coming soon",
-        description: "This feature is under development.",
+        title: "Message sent!",
+        description: "You can view your conversation in the messages section.",
       });
-    } catch (error) {
+      
+      // Navigate to messages page
+      navigate('/messages');
+    } catch (error: any) {
       console.error('Error:', error);
+      toast({
+        title: "Error",
+        description: "Failed to send message. Please try again.",
+        variant: "destructive",
+      });
     }
+  };
+
+  const handleViewProfile = () => {
+    navigate(`/profile/${profile.id}/public`);
   };
 
   return (
@@ -81,7 +111,7 @@ const ListerInfo = ({ profile }: ListerInfoProps) => {
             <MessageCircle className="mr-2 h-4 w-4" />
             Contact Seller
           </Button>
-          <Button variant="outline" className="w-full">
+          <Button variant="outline" className="w-full" onClick={handleViewProfile}>
             View Profile
             <ChevronRight className="ml-2 h-4 w-4" />
           </Button>
