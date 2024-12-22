@@ -32,12 +32,9 @@ const Browse = () => {
     const fetchListings = async () => {
       try {
         setLoading(true);
-        let query = supabase
-          .from('listings')
-          .select('*')
-          .eq('status', 'active');
+        let query = supabase.from('listings').select('*');
 
-        // Apply filters if they are set
+        // Apply filters
         if (searchTerm) {
           query = query.ilike('title', `%${searchTerm}%`);
         }
@@ -54,11 +51,13 @@ const Browse = () => {
           query = query.lte('availability_date', new Date().toISOString());
         }
 
-        // Execute the query
-        const { data, error } = await query.select();
+        const { data, error } = await query;
 
-        if (error) throw error;
-        
+        if (error) {
+          throw error;
+        }
+
+        console.log('Fetched listings:', data); // Debug log
         setListings(data || []);
       } catch (error: any) {
         console.error('Error fetching listings:', error);
