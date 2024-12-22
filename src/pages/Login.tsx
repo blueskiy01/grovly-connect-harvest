@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import { Auth } from '@supabase/auth-ui-react';
-import { ThemeSupa } from '@supabase/auth-ui-shared';
 import { supabase } from '@/integrations/supabase/client';
 import { useNavigate, Link } from 'react-router-dom';
 import { Separator } from '@/components/ui/separator';
+import { authConfig } from '@/config/auth';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -36,45 +36,7 @@ const Login = () => {
 
             <Auth
               supabaseClient={supabase}
-              appearance={{
-                theme: ThemeSupa,
-                style: {
-                  button: {
-                    background: '#2D3319',
-                    borderRadius: '8px',
-                    color: 'white',
-                    fontSize: '14px',
-                    padding: '10px 15px',
-                  },
-                  anchor: {
-                    color: '#4A5827',
-                    textDecoration: 'none',
-                    fontWeight: '500',
-                  },
-                  input: {
-                    borderRadius: '8px',
-                    padding: '10px 15px',
-                  },
-                  message: {
-                    borderRadius: '6px',
-                    fontSize: '14px',
-                    padding: '10px',
-                  },
-                },
-                variables: {
-                  default: {
-                    colors: {
-                      brand: '#2D3319',
-                      brandAccent: '#4A5827',
-                      inputBackground: 'white',
-                      inputBorder: '#E2E8F0',
-                      inputBorderHover: '#CBD5E1',
-                      inputBorderFocus: '#2D3319',
-                    },
-                  },
-                },
-              }}
-              providers={['google']}
+              {...authConfig}
               redirectTo={`${window.location.origin}/dashboard`}
               view="sign_in"
             />
