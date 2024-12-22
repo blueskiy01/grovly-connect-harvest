@@ -5,7 +5,7 @@ const Footer = () => {
   return (
     <footer className="bg-cream-dark mt-auto">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Quick Links */}
           <div className="space-y-4">
             <h3 className="font-fraunces font-semibold text-lg">Quick Links</h3>
@@ -54,19 +54,6 @@ const Footer = () => {
               <Users className="h-6 w-6 text-charcoal-light hover:text-primary transition-colors cursor-pointer" />
               <Mail className="h-6 w-6 text-charcoal-light hover:text-primary transition-colors cursor-pointer" />
             </div>
-          </div>
-
-          {/* CTA */}
-          <div className="space-y-4">
-            <h3 className="font-fraunces font-semibold text-lg">Join Our Community</h3>
-            <p className="text-charcoal-light">Join Grovly – Grow Local. Reduce Waste.</p>
-            <Link
-              to="/register"
-              className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors"
-            >
-              <Users size={16} />
-              Get Started
-            </Link>
           </div>
         </div>
 
