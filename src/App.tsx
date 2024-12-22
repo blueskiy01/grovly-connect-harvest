@@ -32,6 +32,8 @@ function App() {
         <Route path="/settings" element={<Settings />} />
         <Route path="/listings/new" element={<ListingForm />} />
         <Route path="/listings/:id/edit" element={<ListingForm />} />
+        <Route path="/looking-for/new" element={<ListingForm />} />
+        <Route path="/looking-for/:id" element={<ListingDetails />} />
       </Routes>
       <Toaster />
     </Router>
