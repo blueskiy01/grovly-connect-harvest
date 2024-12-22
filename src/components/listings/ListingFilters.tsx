@@ -53,6 +53,7 @@ export const ListingFilters = ({
               <SelectValue placeholder="Produce Type" />
             </SelectTrigger>
             <SelectContent>
+              <SelectItem value="all_produce">All Produce</SelectItem>
               <SelectItem value="vegetables">Vegetables</SelectItem>
               <SelectItem value="berries">Berries</SelectItem>
               <SelectItem value="herbs">Herbs</SelectItem>
@@ -64,6 +65,7 @@ export const ListingFilters = ({
               <SelectValue placeholder="Resource Type" />
             </SelectTrigger>
             <SelectContent>
+              <SelectItem value="all_resources">All Resources</SelectItem>
               <SelectItem value="compost">Compost</SelectItem>
               <SelectItem value="animal-feed">Animal Feed</SelectItem>
               <SelectItem value="fertilizer">Fertilizer</SelectItem>
@@ -75,6 +77,7 @@ export const ListingFilters = ({
               <SelectValue placeholder="Location" />
             </SelectTrigger>
             <SelectContent>
+              <SelectItem value="all_locations">All Locations</SelectItem>
               <SelectItem value="stockholm">Stockholm</SelectItem>
               <SelectItem value="gothenburg">Gothenburg</SelectItem>
               <SelectItem value="malmo">Malmö</SelectItem>
@@ -86,6 +89,7 @@ export const ListingFilters = ({
               <SelectValue placeholder="Availability" />
             </SelectTrigger>
             <SelectContent>
+              <SelectItem value="all_availability">All Availability</SelectItem>
               <SelectItem value="immediate">Immediate</SelectItem>
               <SelectItem value="future">Future Harvest</SelectItem>
             </SelectContent>

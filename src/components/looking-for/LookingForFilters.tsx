@@ -54,7 +54,7 @@ export const LookingForFilters = ({
               <SelectValue placeholder="Category" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="">All Categories</SelectItem>
+              <SelectItem value="all_categories">All Categories</SelectItem>
               <SelectItem value="produce">Produce</SelectItem>
               <SelectItem value="equipment">Equipment</SelectItem>
               <SelectItem value="resources">Resources</SelectItem>
@@ -67,7 +67,7 @@ export const LookingForFilters = ({
               <SelectValue placeholder="Location" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="">All Locations</SelectItem>
+              <SelectItem value="all_locations">All Locations</SelectItem>
               <SelectItem value="stockholm">Stockholm</SelectItem>
               <SelectItem value="gothenburg">Gothenburg</SelectItem>
               <SelectItem value="malmo">Malmö</SelectItem>
