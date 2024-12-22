@@ -78,7 +78,7 @@ const HomeMap = () => {
 
   return (
     <div className="w-full h-[400px] bg-muted rounded-lg overflow-hidden">
-      <div ref={mapContainer} className="w-full h-full" />
+      <div ref={mapContainer} className="w-full h-full" style={{ position: 'relative' }} />
     </div>
   );
 };

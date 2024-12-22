@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import mapboxgl from 'mapbox-gl';
+import 'mapbox-gl/dist/mapbox-gl.css'; // Add this import
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from "@/components/ui/use-toast";
 
@@ -15,11 +16,18 @@ export const useMapInitialization = () => {
       try {
         if (!mapContainer.current) return;
 
+        const { data: { token }, error: tokenError } = await supabase.functions.invoke('get-mapbox-token');
+        
+        if (tokenError) throw tokenError;
+        if (!token) throw new Error('No token returned from function');
+        
+        mapboxgl.accessToken = token;
+
         map.current = new mapboxgl.Map({
           container: mapContainer.current,
           style: 'mapbox://styles/mapbox/light-v11',
           center: [15.5, 62.8],
-          zoom: 6, // Updated zoom level from 8 to 6
+          zoom: 6,
           pitchWithRotate: false,
         });
 
@@ -39,7 +47,7 @@ export const useMapInitialization = () => {
           }
         });
 
-      } catch (error) {
+      } catch (error: any) {
         console.error('Error initializing map:', error);
         setError('Failed to initialize map');
         toast({
@@ -47,33 +55,12 @@ export const useMapInitialization = () => {
           description: "Failed to initialize map. Please try again later.",
           variant: "destructive",
         });
-      }
-    };
-
-    const getMapboxToken = async () => {
-      try {
-        setLoading(true);
-        const { data, error } = await supabase.functions.invoke('get-mapbox-token');
-        
-        if (error) throw error;
-        if (!data?.token) throw new Error('No token returned from function');
-        
-        mapboxgl.accessToken = data.token;
-        await initializeMap();
-      } catch (error: any) {
-        console.error('Error getting Mapbox token:', error);
-        setError('Failed to load map configuration');
-        toast({
-          title: "Error",
-          description: "Failed to load map configuration. Please try again later.",
-          variant: "destructive",
-        });
       } finally {
         setLoading(false);
       }
     };
 
-    getMapboxToken();
+    initializeMap();
 
     return () => {
       if (map.current) {
