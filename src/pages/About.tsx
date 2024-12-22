@@ -39,8 +39,8 @@ const About = () => {
             </div>
             <div className="relative h-64 rounded-lg overflow-hidden">
               <img 
-                src="https://images.unsplash.com/photo-1500375592092-40eb2168fd21"
-                alt="Beautiful farm field with mountains in the background" 
+                src="https://images.unsplash.com/photo-1517022812141-23620dba5c23"
+                alt="Beautiful farm field with grazing animals" 
                 className="object-cover w-full h-full"
               />
             </div>
@@ -75,8 +75,8 @@ const About = () => {
           <div className="grid md:grid-cols-2 gap-8 items-center">
             <div className="relative h-64 rounded-lg overflow-hidden">
               <img 
-                src="https://images.unsplash.com/photo-1504893524553-b855bce32c67" 
-                alt="Sustainability concept" 
+                src="https://images.unsplash.com/photo-1465379944081-7f47de8d74ac" 
+                alt="Sustainable farming concept" 
                 className="object-cover w-full h-full"
               />
             </div>
