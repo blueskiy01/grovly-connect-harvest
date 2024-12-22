@@ -1,9 +1,10 @@
 import { useEffect } from 'react';
 import { Auth } from '@supabase/auth-ui-react';
+import { ThemeSupa } from '@supabase/auth-ui-shared';
 import { supabase } from '@/integrations/supabase/client';
 import { useNavigate, Link } from 'react-router-dom';
+import Navigation from '@/components/Navigation';
 import { Separator } from '@/components/ui/separator';
-import { authConfig } from '@/config/auth';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -21,7 +22,8 @@ const Login = () => {
   }, [navigate]);
 
   return (
-    <div className="min-h-[calc(100vh-4rem)] bg-cream">
+    <div className="min-h-screen bg-cream">
+      <Navigation />
       <div className="max-w-md mx-auto pt-24 px-4">
         <div className="bg-white rounded-lg shadow-md p-8">
           <div className="space-y-6">
@@ -36,7 +38,58 @@ const Login = () => {
 
             <Auth
               supabaseClient={supabase}
-              {...authConfig}
+              appearance={{
+                theme: ThemeSupa,
+                style: {
+                  button: {
+                    background: '#2D3319',
+                    borderRadius: '8px',
+                    color: 'white',
+                    fontSize: '14px',
+                    padding: '10px 15px',
+                  },
+                  anchor: {
+                    color: '#4A5827',
+                    textDecoration: 'none',
+                    fontWeight: '500',
+                  },
+                  input: {
+                    borderRadius: '8px',
+                    padding: '10px 15px',
+                  },
+                  message: {
+                    borderRadius: '6px',
+                    fontSize: '14px',
+                    padding: '10px',
+                  },
+                },
+                variables: {
+                  default: {
+                    colors: {
+                      brand: '#2D3319',
+                      brandAccent: '#4A5827',
+                      inputBackground: 'white',
+                      inputBorder: '#E2E8F0',
+                      inputBorderHover: '#CBD5E1',
+                      inputBorderFocus: '#2D3319',
+                    },
+                    space: {
+                      inputPadding: '10px 15px',
+                      buttonPadding: '10px 15px',
+                    },
+                    borderWidths: {
+                      buttonBorderWidth: '1px',
+                      inputBorderWidth: '1px',
+                    },
+                    radii: {
+                      borderRadiusButton: '8px',
+                      buttonBorderRadius: '8px',
+                      inputBorderRadius: '8px',
+                    },
+                  },
+                },
+              }}
+              providers={['google']}
               redirectTo={`${window.location.origin}/dashboard`}
               view="sign_in"
             />
