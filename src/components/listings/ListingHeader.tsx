@@ -14,7 +14,7 @@ const ListingHeader = ({ title, category, type, image, listingId }: ListingHeade
     <div>
       <div className="aspect-video relative rounded-lg overflow-hidden bg-muted">
         <img
-          src={image || '/placeholder.svg'}
+          src={image || "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05"}
           alt={title}
           className="w-full h-full object-cover"
         />

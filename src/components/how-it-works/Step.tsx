@@ -31,7 +31,7 @@ const Step = ({ icon, title, description, imagePosition = 'right' }: StepProps) 
       </div>
       <div className="flex-1">
         <img 
-          src="/placeholder.svg"
+          src="https://images.unsplash.com/photo-1458668383970-8ddd3927deed"
           alt={`Step illustration: ${title}`}
           className="w-full h-auto rounded-xl shadow-lg"
         />

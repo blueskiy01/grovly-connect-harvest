@@ -26,17 +26,17 @@ const Index = () => {
     {
       title: "List or search for produce and resources",
       description: "Post your available produce or browse local listings to find what you need.",
-      image: "/placeholder.svg",
+      image: "https://images.unsplash.com/photo-1482938289607-e9573fc25ebb",
     },
     {
       title: "Connect with farmers or buyers",
       description: "Message directly with local farmers and buyers to arrange exchanges.",
-      image: "/placeholder.svg",
+      image: "https://images.unsplash.com/photo-1472396961693-142e6e269027",
     },
     {
       title: "Share, trade, or buy locally",
       description: "Complete your transaction and contribute to a sustainable local economy.",
-      image: "/placeholder.svg",
+      image: "https://images.unsplash.com/photo-1518495973542-4542c06a5843",
     },
   ];
 
@@ -45,19 +45,19 @@ const Index = () => {
       quote: "Grovly helped me reduce waste and connect with local buyers who value fresh produce.",
       author: "Sarah M.",
       role: "Local Farmer",
-      image: "/placeholder.svg",
+      image: "https://images.unsplash.com/photo-1513836279014-a89f7a76ae86",
     },
     {
       quote: "I love knowing exactly where my food comes from and supporting local agriculture.",
       author: "Michael R.",
       role: "Consumer",
-      image: "/placeholder.svg",
+      image: "https://images.unsplash.com/photo-1469474968028-56623f02e42e",
     },
     {
       quote: "Our café's coffee grounds now help local gardens grow. It's a win-win!",
       author: "Lisa K.",
       role: "Business Owner",
-      image: "/placeholder.svg",
+      image: "https://images.unsplash.com/photo-1506744038136-46273834b3fb",
     },
   ];
 
