@@ -3,7 +3,6 @@ import { SessionContextProvider } from '@supabase/auth-helpers-react';
 import { supabase } from '@/integrations/supabase/client';
 import { Toaster } from '@/components/ui/toaster';
 import { Toaster as SonnerToaster } from '@/components/ui/sonner';
-import './App.css';
 import Navigation from '@/components/Navigation';
 import Login from '@/pages/Login';
 import Register from '@/pages/Register';
@@ -11,6 +10,7 @@ import Dashboard from '@/pages/Dashboard';
 import Profile from '@/pages/Profile';
 import Messages from '@/pages/Messages';
 import { Routes, Route } from 'react-router-dom';
+import './App.css';
 
 function App() {
   return (
@@ -18,6 +18,7 @@ function App() {
       <BrowserRouter>
         <Navigation />
         <Routes>
+          <Route path="/" element={<Dashboard />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Register />} />
           <Route path="/dashboard" element={<Dashboard />} />
