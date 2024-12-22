@@ -3,7 +3,6 @@ import { Auth } from '@supabase/auth-ui-react';
 import { ThemeSupa } from '@supabase/auth-ui-shared';
 import { supabase } from '@/integrations/supabase/client';
 import { useNavigate, Link } from 'react-router-dom';
-import Navigation from '@/components/Navigation';
 import { Separator } from '@/components/ui/separator';
 
 const Login = () => {
