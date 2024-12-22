@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Heart } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
@@ -12,6 +12,24 @@ const SaveListingButton = ({ listingId }: SaveListingButtonProps) => {
   const [isSaved, setIsSaved] = useState(false);
   const { toast } = useToast();
 
+  useEffect(() => {
+    const checkIfSaved = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) return;
+
+      const { data } = await supabase
+        .from('saved_listings')
+        .select()
+        .eq('user_id', session.user.id)
+        .eq('listing_id', listingId)
+        .single();
+
+      setIsSaved(!!data);
+    };
+
+    checkIfSaved();
+  }, [listingId]);
+
   const handleSaveListing = async () => {
     try {
       const { data: { session } } = await supabase.auth.getSession();
@@ -23,20 +41,36 @@ const SaveListingButton = ({ listingId }: SaveListingButtonProps) => {
         return;
       }
 
-      const { error } = await supabase
-        .from('saved_listings')
-        .insert({
-          listing_id: listingId,
-          user_id: session.user.id  // Explicitly set the user_id
+      if (isSaved) {
+        const { error } = await supabase
+          .from('saved_listings')
+          .delete()
+          .eq('user_id', session.user.id)
+          .eq('listing_id', listingId);
+
+        if (error) throw error;
+
+        setIsSaved(false);
+        toast({
+          title: "Success",
+          description: "Listing removed from your favorites.",
         });
+      } else {
+        const { error } = await supabase
+          .from('saved_listings')
+          .upsert({
+            listing_id: listingId,
+            user_id: session.user.id
+          });
 
-      if (error) throw error;
+        if (error) throw error;
 
-      setIsSaved(true);
-      toast({
-        title: "Success",
-        description: "Listing saved to your favorites.",
-      });
+        setIsSaved(true);
+        toast({
+          title: "Success",
+          description: "Listing saved to your favorites.",
+        });
+      }
     } catch (error) {
       console.error('Error saving listing:', error);
       toast({
@@ -54,7 +88,7 @@ const SaveListingButton = ({ listingId }: SaveListingButtonProps) => {
       onClick={handleSaveListing}
       className={isSaved ? 'text-primary' : ''}
     >
-      <Heart className="h-4 w-4" />
+      <Heart className={`h-4 w-4 ${isSaved ? 'fill-current' : ''}`} />
     </Button>
   );
 };
