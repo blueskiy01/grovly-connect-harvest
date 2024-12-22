@@ -23,7 +23,6 @@ const Login = () => {
 
   return (
     <div className="min-h-screen bg-cream">
-      <Navigation />
       <div className="max-w-md mx-auto pt-24 px-4">
         <div className="bg-white rounded-lg shadow-md p-8">
           <div className="space-y-6">
@@ -72,19 +71,6 @@ const Login = () => {
                       inputBorder: '#E2E8F0',
                       inputBorderHover: '#CBD5E1',
                       inputBorderFocus: '#2D3319',
-                    },
-                    space: {
-                      inputPadding: '10px 15px',
-                      buttonPadding: '10px 15px',
-                    },
-                    borderWidths: {
-                      buttonBorderWidth: '1px',
-                      inputBorderWidth: '1px',
-                    },
-                    radii: {
-                      borderRadiusButton: '8px',
-                      buttonBorderRadius: '8px',
-                      inputBorderRadius: '8px',
                     },
                   },
                 },
