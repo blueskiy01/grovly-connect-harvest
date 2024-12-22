@@ -73,25 +73,12 @@ const Login = () => {
                       inputBorderHover: '#CBD5E1',
                       inputBorderFocus: '#2D3319',
                     },
-                    space: {
-                      inputPadding: '10px 15px',
-                      buttonPadding: '10px 15px',
-                    },
-                    borderWidths: {
-                      buttonBorderWidth: '1px',
-                      inputBorderWidth: '1px',
-                    },
-                    radii: {
-                      borderRadiusButton: '8px',
-                      buttonBorderRadius: '8px',
-                      inputBorderRadius: '8px',
-                    },
                   },
                 },
               }}
-              providers={['google']}
-              redirectTo={`${window.location.origin}/dashboard`}
+              providers={[]}
               view="sign_in"
+              redirectTo={`${window.location.origin}/dashboard`}
             />
 
             <div className="text-center space-y-4">
