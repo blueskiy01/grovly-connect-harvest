@@ -12,12 +12,10 @@ interface ListingHeaderProps {
 const ListingHeader = ({ title, category, type, image, listingId }: ListingHeaderProps) => {
   return (
     <div>
-      <div className="aspect-video relative rounded-lg overflow-hidden bg-muted">
-        <img
-          src={image || "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05"}
-          alt={title}
-          className="w-full h-full object-cover"
-        />
+      <div className="aspect-video relative rounded-lg overflow-hidden bg-cream flex items-center justify-center">
+        <span className="font-fraunces text-4xl font-bold text-primary">
+          Grovly
+        </span>
       </div>
       <div className="mt-4 flex items-start justify-between">
         <div>
