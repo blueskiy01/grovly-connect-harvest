@@ -74,7 +74,6 @@ const Register = () => {
                   },
                 },
               }}
-              providers={[]}
               view="sign_up"
               redirectTo={`${window.location.origin}/profile`}
             />
