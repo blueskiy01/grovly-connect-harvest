@@ -35,7 +35,7 @@ export const LookingForFilters = ({
   setEndDate,
 }: LookingForFiltersProps) => {
   return (
-    <div className="bg-card rounded-lg shadow-sm p-6 mb-8">
+    <div className="bg-cream rounded-lg shadow-sm p-6 mb-8 relative">
       <div className="space-y-4">
         <div className="flex gap-4">
           <Input
@@ -43,17 +43,17 @@ export const LookingForFilters = ({
             placeholder="Search by title or description"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="flex-1"
+            className="flex-1 bg-white"
           />
           <Button>Search</Button>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           <Select value={category} onValueChange={setCategory}>
-            <SelectTrigger>
+            <SelectTrigger className="bg-white">
               <SelectValue placeholder="Category" />
             </SelectTrigger>
-            <SelectContent>
+            <SelectContent className="bg-white z-50">
               <SelectItem value="all_categories">All Categories</SelectItem>
               <SelectItem value="produce">Produce</SelectItem>
               <SelectItem value="equipment">Equipment</SelectItem>
@@ -63,10 +63,10 @@ export const LookingForFilters = ({
           </Select>
 
           <Select value={location} onValueChange={setLocation}>
-            <SelectTrigger>
+            <SelectTrigger className="bg-white">
               <SelectValue placeholder="Location" />
             </SelectTrigger>
-            <SelectContent>
+            <SelectContent className="bg-white z-50">
               <SelectItem value="all_locations">All Locations</SelectItem>
               <SelectItem value="stockholm">Stockholm</SelectItem>
               <SelectItem value="gothenburg">Gothenburg</SelectItem>
