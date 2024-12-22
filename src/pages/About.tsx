@@ -39,8 +39,8 @@ const About = () => {
             </div>
             <div className="relative h-64 rounded-lg overflow-hidden">
               <img 
-                src="https://images.unsplash.com/photo-1517022812141-23620dba5c23" 
-                alt="Local farming community" 
+                src="https://images.unsplash.com/photo-1426604966848-d7adac402bff"
+                alt="Beautiful farm field with mountains in the background" 
                 className="object-cover w-full h-full"
               />
             </div>
