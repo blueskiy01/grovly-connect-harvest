@@ -9,27 +9,13 @@ interface ListingCardProps {
   listing: Listing;
 }
 
-const getImageForCategory = (category: string) => {
-  const images = {
-    'Vegetables': 'https://images.unsplash.com/photo-1466721591366-2d5fba72006d',
-    'Fruits': 'https://images.unsplash.com/photo-1472396961693-142e6e269027',
-    'Dairy': 'https://images.unsplash.com/photo-1465379944081-7f47de8d74ac',
-    'Meat': 'https://images.unsplash.com/photo-1452960962994-acf4fd70b632',
-    'Resources': 'https://images.unsplash.com/photo-1493962853295-0fd70327578a',
-    'default': 'https://images.unsplash.com/photo-1472396961693-142e6e269027'
-  };
-  return images[category as keyof typeof images] || images.default;
-};
-
 export const ListingCard = ({ listing }: ListingCardProps) => {
   return (
     <Card className="overflow-hidden hover:shadow-md transition-shadow">
-      <div className="relative h-48 overflow-hidden">
-        <img 
-          src={getImageForCategory(listing.category)}
-          alt={listing.title}
-          className="w-full h-full object-cover"
-        />
+      <div className="relative h-48 overflow-hidden bg-cream flex items-center justify-center">
+        <span className="font-fraunces text-4xl font-bold text-primary">
+          Grovly
+        </span>
       </div>
       <CardContent className="p-6">
         <div className="flex items-start justify-between mb-4">
