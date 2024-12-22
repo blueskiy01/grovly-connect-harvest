@@ -5,7 +5,8 @@ import { supabase } from '@/integrations/supabase/client';
 import App from './App';
 import './index.css';
 
-const root = createRoot(document.getElementById('root')!);
+const container = document.getElementById('root');
+const root = createRoot(container!);
 
 root.render(
   <React.StrictMode>
