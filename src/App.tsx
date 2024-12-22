@@ -16,17 +16,21 @@ function App() {
   return (
     <SessionContextProvider supabaseClient={supabase}>
       <BrowserRouter>
-        <Navigation />
-        <Routes>
-          <Route path="/" element={<Dashboard />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Register />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/messages" element={<Messages />} />
-        </Routes>
-        <Toaster />
-        <SonnerToaster />
+        <div className="min-h-screen bg-background">
+          <Navigation />
+          <main className="container mx-auto px-4 py-8">
+            <Routes>
+              <Route path="/" element={<Dashboard />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<Register />} />
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/messages" element={<Messages />} />
+            </Routes>
+          </main>
+          <Toaster />
+          <SonnerToaster />
+        </div>
       </BrowserRouter>
     </SessionContextProvider>
   );

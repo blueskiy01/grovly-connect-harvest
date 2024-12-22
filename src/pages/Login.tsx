@@ -21,7 +21,7 @@ const Login = () => {
   }, [navigate]);
 
   return (
-    <div className="min-h-screen bg-cream">
+    <div className="min-h-[calc(100vh-4rem)] bg-cream">
       <div className="max-w-md mx-auto pt-24 px-4">
         <div className="bg-white rounded-lg shadow-md p-8">
           <div className="space-y-6">
