@@ -24,7 +24,7 @@ export function DatePicker({ date, onDateChange, placeholder }: DatePickerProps)
           <Button
             variant={"outline"}
             className={cn(
-              "w-full justify-start text-left font-normal",
+              "w-full justify-start text-left font-normal bg-white",
               !date && "text-muted-foreground"
             )}
           >
@@ -32,12 +32,13 @@ export function DatePicker({ date, onDateChange, placeholder }: DatePickerProps)
             {date ? format(date, "PPP") : placeholder || "Pick a date"}
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-auto p-0 bg-background" align="start">
+        <PopoverContent className="w-auto p-0 bg-white z-50 shadow-lg" align="start">
           <Calendar
             mode="single"
             selected={date}
             onSelect={onDateChange}
             initialFocus
+            className="bg-white rounded-md border"
           />
         </PopoverContent>
       </Popover>
@@ -45,7 +46,7 @@ export function DatePicker({ date, onDateChange, placeholder }: DatePickerProps)
         <Button
           variant="ghost"
           size="icon"
-          className="absolute right-0 top-0 h-full px-3 hover:bg-transparent"
+          className="absolute right-0 top-0 h-full px-3 hover:bg-gray-100"
           onClick={() => onDateChange(undefined)}
         >
           <X className="h-4 w-4" />
