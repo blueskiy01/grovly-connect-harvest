@@ -42,7 +42,6 @@ const Login = () => {
               },
             }}
             view="sign_in"
-            redirectTo={`${window.location.origin}/dashboard`}
           />
 
           <div className="mt-6 text-center">
