@@ -20,7 +20,7 @@ const HomeMap = () => {
       try {
         const { data, error } = await supabase
           .from('listings')
-          .select('id, title, location, type')
+          .select('id, title, location, type, description')
           .not('location', 'is', null);
         
         if (error) throw error;
@@ -44,22 +44,24 @@ const HomeMap = () => {
       try {
         if (!mapContainer.current || listings.length === 0) return;
 
-        // Initialize map centered on Nordic region
+        // Initialize map centered on Nordic region with increased zoom
         map.current = new mapboxgl.Map({
           container: mapContainer.current,
-          style: 'mapbox://styles/mapbox/streets-v12',
-          center: [15.5, 62.8], // Centered approximately on Sweden
-          zoom: 4, // Zoom level to show most of Nordic region
+          style: 'mapbox://styles/mapbox/light-v11', // Using a lighter style similar to Airbnb
+          center: [15.5, 62.8],
+          zoom: 8, // Increased zoom level
+          pitchWithRotate: false, // Disable 3D rotation for a cleaner look
         });
 
-        map.current.addControl(new mapboxgl.NavigationControl(), 'top-right');
+        map.current.addControl(new mapboxgl.NavigationControl({
+          showCompass: false // Hide compass for cleaner UI
+        }), 'top-right');
 
         // Add markers for each listing
         for (const listing of listings) {
           if (!listing.location) continue;
 
           try {
-            // Geocode the location
             const response = await fetch(
               `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(
                 listing.location
@@ -75,25 +77,47 @@ const HomeMap = () => {
             if (data.features && data.features.length > 0) {
               const [lng, lat] = data.features[0].center;
 
-              // Create a popup
-              const popup = new mapboxgl.Popup({ offset: 25 }).setHTML(
-                `<div class="p-2">
-                  <h3 class="font-semibold">${listing.title}</h3>
-                  <p class="text-sm text-gray-600">${listing.type}</p>
-                  <p class="text-sm text-gray-600">${listing.location}</p>
+              // Create a custom popup with Airbnb-like styling
+              const popup = new mapboxgl.Popup({
+                offset: 25,
+                closeButton: false,
+                maxWidth: '300px'
+              }).setHTML(
+                `<div class="p-3 font-inter">
+                  <h3 class="font-semibold text-base mb-1">${listing.title}</h3>
+                  <p class="text-sm text-gray-600 mb-2">${listing.type}</p>
+                  <p class="text-sm text-gray-500 line-clamp-2">${listing.description || listing.location}</p>
                 </div>`
               );
 
+              // Create a custom marker element
+              const el = document.createElement('div');
+              el.className = 'custom-marker';
+              el.style.backgroundColor = listing.type === 'Produce' ? '#22c55e' : '#3b82f6';
+              el.style.width = '32px';
+              el.style.height = '32px';
+              el.style.borderRadius = '50%';
+              el.style.border = '2px solid white';
+              el.style.boxShadow = '0 2px 4px rgba(0,0,0,0.18)';
+              el.style.cursor = 'pointer';
+              el.style.transition = 'transform 0.2s ease';
+
+              // Add hover effect
+              el.addEventListener('mouseenter', () => {
+                el.style.transform = 'scale(1.1)';
+              });
+              el.addEventListener('mouseleave', () => {
+                el.style.transform = 'scale(1)';
+              });
+
               // Create a marker
-              const marker = new mapboxgl.Marker({
-                color: listing.type === 'Produce' ? '#22c55e' : '#3b82f6',
-              })
+              const marker = new mapboxgl.Marker(el)
                 .setLngLat([lng, lat])
                 .setPopup(popup)
                 .addTo(map.current);
 
               // Add click event to navigate to listing
-              marker.getElement().addEventListener('click', () => {
+              el.addEventListener('click', () => {
                 navigate(`/listings/${listing.id}`);
               });
             }
@@ -101,6 +125,20 @@ const HomeMap = () => {
             console.error('Error geocoding location:', listing.location, error);
           }
         }
+
+        // Add zoom controls
+        map.current.on('zoom', () => {
+          if (map.current) {
+            const currentZoom = map.current.getZoom();
+            // Adjust marker size based on zoom level
+            const markers = document.getElementsByClassName('custom-marker');
+            Array.from(markers).forEach((marker: any) => {
+              const scale = Math.max(0.5, Math.min(1, currentZoom / 10));
+              marker.style.transform = `scale(${scale})`;
+            });
+          }
+        });
+
       } catch (error) {
         console.error('Error initializing map:', error);
         setError('Failed to initialize map');
