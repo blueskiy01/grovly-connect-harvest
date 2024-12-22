@@ -1,6 +1,9 @@
 import Navigation from '@/components/Navigation';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
+import farmField from '@/media/farm_field.png';
+import garlicFarm from '@/media/garlic_farm.png';
+
 
 const About = () => {
   return (
@@ -39,7 +42,7 @@ const About = () => {
             </div>
             <div className="relative h-64 rounded-lg overflow-hidden">
               <img 
-                src="../media/farm_field.png" 
+                src={farmField} 
                 alt="Beautiful farm field" 
                 className="object-cover w-full h-full"
               />
@@ -75,7 +78,7 @@ const About = () => {
           <div className="grid md:grid-cols-2 gap-8 items-center">
             <div className="relative h-64 rounded-lg overflow-hidden">
               <img 
-                src="../media/garlic_farm.png" 
+                src={garlicFarm} 
                 alt="Garlic Farm" 
                 className="object-cover w-full h-full"
               />
