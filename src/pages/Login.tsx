@@ -76,7 +76,6 @@ const Login = () => {
                   },
                 },
               }}
-              providers={[]}
               view="sign_in"
               redirectTo={`${window.location.origin}/dashboard`}
             />
