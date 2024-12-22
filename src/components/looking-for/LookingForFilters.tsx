@@ -8,6 +8,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { DatePicker } from '@/components/ui/date-picker';
+import { X } from 'lucide-react';
 
 interface LookingForFiltersProps {
   searchTerm: string;
@@ -74,17 +75,37 @@ export const LookingForFilters = ({
             </SelectContent>
           </Select>
 
-          <DatePicker
-            placeholder="Start Date"
-            date={startDate}
-            onDateChange={setStartDate}
-          />
+          <div className="relative">
+            <DatePicker
+              placeholder="Start Date"
+              date={startDate}
+              onDateChange={setStartDate}
+            />
+            {startDate && (
+              <button
+                onClick={() => setStartDate(undefined)}
+                className="absolute right-2 top-1/2 -translate-y-1/2 p-1 hover:bg-gray-100 rounded-full"
+              >
+                <X className="h-4 w-4 text-gray-500" />
+              </button>
+            )}
+          </div>
 
-          <DatePicker
-            placeholder="End Date"
-            date={endDate}
-            onDateChange={setEndDate}
-          />
+          <div className="relative">
+            <DatePicker
+              placeholder="End Date"
+              date={endDate}
+              onDateChange={setEndDate}
+            />
+            {endDate && (
+              <button
+                onClick={() => setEndDate(undefined)}
+                className="absolute right-2 top-1/2 -translate-y-1/2 p-1 hover:bg-gray-100 rounded-full"
+              >
+                <X className="h-4 w-4 text-gray-500" />
+              </button>
+            )}
+          </div>
         </div>
       </div>
     </div>
