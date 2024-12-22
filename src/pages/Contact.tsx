@@ -23,7 +23,7 @@ const Contact = () => {
                 rel="noopener noreferrer"
                 className="text-primary hover:underline break-all"
               >
-                Connect with me 
+                https://linkedin.com/in/korinlim
               </a>
             </div>
 
