@@ -7,6 +7,7 @@ import { useToast } from '@/hooks/use-toast';
 import ListingHeader from '@/components/listings/ListingHeader';
 import ListingInfo from '@/components/listings/ListingInfo';
 import ListerInfo from '@/components/listings/ListerInfo';
+import { Heart } from 'lucide-react';
 
 const ListingDetails = () => {
   const { id } = useParams();
