@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Leaf, Users, Recycle, ArrowRight } from 'lucide-react';
 import Navigation from '../components/Navigation';
+import HomeMap from '../components/HomeMap';
 
 const Index = () => {
   const benefits = [
@@ -93,6 +94,12 @@ const Index = () => {
             </div>
           </div>
         </div>
+      </div>
+
+      {/* Map Section */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <h2 className="text-4xl font-bold text-center mb-16">Discover Local Listings</h2>
+        <HomeMap />
       </div>
 
       {/* Benefits Section */}
