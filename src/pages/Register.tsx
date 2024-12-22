@@ -41,9 +41,7 @@ const Register = () => {
                 },
               },
             }}
-            providers={['google']}
             view="sign_up"
-            redirectTo={`${window.location.origin}/dashboard`}
           />
 
           <div className="mt-6 text-center">
