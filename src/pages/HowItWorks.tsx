@@ -45,19 +45,19 @@ const HowItWorks = () => {
       quote: "I shared my interest in bok choy, and now a local farmer grows it just for us!",
       author: "Lin",
       role: "Consumer",
-      image: lin, // Pass the imported image directly
+      image: lin,  
     },
     {
       quote: "By seeing demand trends early, I planted garlic and sold out my entire harvest!",
       author: "Karl",
       role: "Farmer",
-      image: karl, // Pass the imported image directly
+      image: karl, 
     },
     {
       quote: "We repurpose our coffee grounds to a local mushroom start-up, reducing waste and helping the community!",
       author: "Helena",
       role: "Café Owner",
-      image: helena, // Pass the imported image directly
+      image: helena,  
     }
   ];
   

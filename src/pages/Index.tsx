@@ -2,6 +2,12 @@ import { Link } from 'react-router-dom';
 import { Leaf, Users, Recycle, ArrowRight } from 'lucide-react';
 import Navigation from '../components/Navigation';
 import HomeMap from '../components/HomeMap';
+import helena from '@/media/helena.png';
+import karl from '@/media/karl.png';
+import lin from '@/media/lin.png';
+import produce from '@/media/produce.png';
+import connect from '@/media/connect.png';
+import sharing from '@/media/sharing.png';
 
 const Index = () => {
   const benefits = [
@@ -26,39 +32,39 @@ const Index = () => {
     {
       title: "List or search for produce and resources",
       description: "Post your available produce or browse local listings to find what you need.",
-      image: "https://images.unsplash.com/photo-1482938289607-e9573fc25ebb",
+      image: produce,
     },
     {
       title: "Connect with farmers or buyers",
       description: "Message directly with local farmers and buyers to arrange exchanges.",
-      image: "https://images.unsplash.com/photo-1472396961693-142e6e269027",
+      image: connect,
     },
     {
       title: "Share, trade, or buy locally",
       description: "Complete your transaction and contribute to a sustainable local economy.",
-      image: "https://images.unsplash.com/photo-1518495973542-4542c06a5843",
+      image: sharing,
     },
   ];
 
   const testimonials = [
     {
-      quote: "Grovly helped me reduce waste and connect with local buyers who value fresh produce.",
-      author: "Sarah M.",
-      role: "Local Farmer",
-      image: "https://images.unsplash.com/photo-1513836279014-a89f7a76ae86",
-    },
-    {
-      quote: "I love knowing exactly where my food comes from and supporting local agriculture.",
-      author: "Michael R.",
+      quote: "I shared my interest in bok choy, and now a local farmer grows it just for us!",
+      author: "Lin",
       role: "Consumer",
-      image: "https://images.unsplash.com/photo-1469474968028-56623f02e42e",
+      image: lin,  
     },
     {
-      quote: "Our café's coffee grounds now help local gardens grow. It's a win-win!",
-      author: "Lisa K.",
-      role: "Business Owner",
-      image: "https://images.unsplash.com/photo-1506744038136-46273834b3fb",
+      quote: "By seeing demand trends early, I planted garlic and sold out my entire harvest!",
+      author: "Karl",
+      role: "Farmer",
+      image: karl, 
     },
+    {
+      quote: "We repurpose our coffee grounds to a local mushroom start-up, reducing waste and helping the community!",
+      author: "Helena",
+      role: "Café Owner",
+      image: helena,  
+    }
   ];
 
   return (
@@ -172,7 +178,7 @@ const Index = () => {
       {/* Final CTA Section */}
       <div className="bg-primary text-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl font-bold mb-8">Start sharing, growing, and saving today!</h2>
+          <h2 className="text-4xl font-bold mb-8">Start sharing, growing, and connecting today!</h2>
           <Link
             to="/signup"
             className="inline-block px-8 py-3 bg-white text-primary rounded-lg hover:bg-cream transition-colors"
