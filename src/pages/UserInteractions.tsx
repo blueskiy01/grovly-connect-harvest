@@ -7,11 +7,9 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Loader2 } from 'lucide-react';
 import { Listing } from '@/types/listings';
-import type { LookingForRequest } from '@/types/looking-for';
 
 const UserInteractions = () => {
   const [savedListings, setSavedListings] = useState<Listing[]>([]);
-  const [interests, setInterests] = useState<LookingForRequest[]>([]);
   const [preOrders, setPreOrders] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const { type } = useParams();
@@ -42,19 +40,6 @@ const UserInteractions = () => {
           if (listingsError) throw listingsError;
           setSavedListings(listings || []);
         }
-
-        // Fetch interests (looking_for_requests)
-        const { data: interestsData, error: interestsError } = await supabase
-          .from('looking_for_requests')
-          .select(`
-            *,
-            profiles(display_name)
-          `)
-          .eq('user_id', session.user.id)
-          .eq('status', 'active');
-
-        if (interestsError) throw interestsError;
-        setInterests(interestsData || []);
 
         // Fetch pre-orders (looking_for_offers where user is the creator)
         const { data: preOrdersData, error: preOrdersError } = await supabase
@@ -104,7 +89,6 @@ const UserInteractions = () => {
         <Tabs defaultValue={type || "saved"} className="space-y-6">
           <TabsList>
             <TabsTrigger value="saved">Saved Listings</TabsTrigger>
-            <TabsTrigger value="interests">Interests Shared</TabsTrigger>
             <TabsTrigger value="preorders">Pre-orders</TabsTrigger>
           </TabsList>
 
@@ -119,33 +103,6 @@ const UserInteractions = () => {
               <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
                 {savedListings.map((listing) => (
                   <ListingCard key={listing.id} listing={listing} />
-                ))}
-              </div>
-            )}
-          </TabsContent>
-
-          <TabsContent value="interests">
-            {interests.length === 0 ? (
-              <Card>
-                <CardContent className="flex flex-col items-center justify-center p-6">
-                  <p className="text-muted-foreground">No interests shared yet</p>
-                </CardContent>
-              </Card>
-            ) : (
-              <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                {interests.map((interest) => (
-                  <Card key={interest.id} className="p-6">
-                    <h3 className="text-lg font-semibold mb-2">{interest.title}</h3>
-                    <p className="text-sm text-muted-foreground mb-4">{interest.description}</p>
-                    <div className="flex justify-between text-sm">
-                      <span>Category: {interest.category}</span>
-                      {interest.quantity && (
-                        <span>
-                          {interest.quantity} {interest.unit}
-                        </span>
-                      )}
-                    </div>
-                  </Card>
                 ))}
               </div>
             )}
