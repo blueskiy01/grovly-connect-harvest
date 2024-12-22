@@ -45,22 +45,10 @@ const Navigation = () => {
     }
   };
 
-  const handleLogout = async () => {
-    await supabase.auth.signOut();
-    navigate('/');
-  };
-
-  const navItems = [
-    { name: 'Browse', path: '/browse' },
-    { name: 'How It Works', path: '/how-it-works' },
-    { name: 'About', path: '/about' },
-    { name: 'Contact', path: '/contact' },
-  ];
-
   return (
     <>
       <div className="h-16" /> {/* Spacer to prevent content jump */}
-      <nav className="fixed top-0 left-0 right-0 bg-cream/90 backdrop-blur-sm z-50 border-b border-primary/10">
+      <nav className="fixed top-0 left-0 right-0 bg-cream/90 backdrop-blur-sm z-50 border-b border-primary/10 w-full">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16">
             <div className="flex items-center">
@@ -69,7 +57,12 @@ const Navigation = () => {
               </Link>
             </div>
 
-            <DesktopMenu navItems={navItems} user={user} profile={profile} />
+            <DesktopMenu navItems={[
+              { name: 'Browse', path: '/browse' },
+              { name: 'How It Works', path: '/how-it-works' },
+              { name: 'About', path: '/about' },
+              { name: 'Contact', path: '/contact' },
+            ]} user={user} profile={profile} />
 
             {/* Mobile menu button */}
             <div className="md:hidden flex items-center">
@@ -85,9 +78,17 @@ const Navigation = () => {
 
         <MobileMenu
           isOpen={isOpen}
-          navItems={navItems}
+          navItems={[
+            { name: 'Browse', path: '/browse' },
+            { name: 'How It Works', path: '/how-it-works' },
+            { name: 'About', path: '/about' },
+            { name: 'Contact', path: '/contact' },
+          ]}
           user={user}
-          handleLogout={handleLogout}
+          handleLogout={async () => {
+            await supabase.auth.signOut();
+            navigate('/');
+          }}
           onClose={() => setIsOpen(false)}
         />
       </nav>

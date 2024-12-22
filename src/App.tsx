@@ -21,7 +21,7 @@ import { Toaster } from '@/components/ui/toaster';
 function App() {
   return (
     <Router>
-      <div className="min-h-screen flex flex-col">
+      <div className="min-h-screen flex flex-col overflow-x-hidden">
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/login" element={<Login />} />

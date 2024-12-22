@@ -53,7 +53,7 @@ export const LookingForFilters = ({
             <SelectTrigger className="bg-white">
               <SelectValue placeholder="Category" />
             </SelectTrigger>
-            <SelectContent className="bg-white z-50">
+            <SelectContent className="bg-white z-[100]">
               <SelectItem value="all_categories">All Categories</SelectItem>
               <SelectItem value="produce">Produce</SelectItem>
               <SelectItem value="equipment">Equipment</SelectItem>
@@ -66,7 +66,7 @@ export const LookingForFilters = ({
             <SelectTrigger className="bg-white">
               <SelectValue placeholder="Location" />
             </SelectTrigger>
-            <SelectContent className="bg-white z-50">
+            <SelectContent className="bg-white z-[100]">
               <SelectItem value="all_locations">All Locations</SelectItem>
               <SelectItem value="stockholm">Stockholm</SelectItem>
               <SelectItem value="gothenburg">Gothenburg</SelectItem>
