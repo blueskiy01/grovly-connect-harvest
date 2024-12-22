@@ -1,25 +1,27 @@
 import { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import Navigation from '@/components/Navigation';
-import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Separator } from '@/components/ui/separator';
 import { useToast } from '@/hooks/use-toast';
-import { Heart, MessageCircle, MapPin, Calendar, Box, Star, ChevronRight } from 'lucide-react';
 import Map from '@/components/Map';
+import ListingDetailsLoading from '@/components/listings/ListingDetailsLoading';
+import ListingNotFound from '@/components/listings/ListingNotFound';
+import ListingHeader from '@/components/listings/ListingHeader';
+import ListingInfo from '@/components/listings/ListingInfo';
+import ListerInfo from '@/components/listings/ListerInfo';
 
 const ListingDetails = () => {
   const { id } = useParams();
   const { toast } = useToast();
   const [listing, setListing] = useState<any>(null);
   const [loading, setLoading] = useState(true);
-  const [isSaved, setIsSaved] = useState(false);
 
   useEffect(() => {
     const fetchListing = async () => {
       try {
+        console.log('Fetching listing with ID:', id);
+        
         // Validate UUID format
         if (!id?.match(/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i)) {
           throw new Error('Invalid listing ID format');
@@ -41,6 +43,8 @@ const ListingDetails = () => {
           .maybeSingle();
 
         if (error) throw error;
+        
+        console.log('Fetched listing data:', data);
         
         if (!data) {
           toast({
@@ -67,70 +71,11 @@ const ListingDetails = () => {
     fetchListing();
   }, [id, toast]);
 
-  const handleSaveListing = async () => {
-    try {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (!session) {
-        toast({
-          title: "Authentication required",
-          description: "Please log in to save listings.",
-        });
-        return;
-      }
-
-      const { error } = await supabase
-        .from('saved_listings')
-        .upsert({ user_id: session.user.id, listing_id: id });
-
-      if (error) throw error;
-
-      setIsSaved(true);
-      toast({
-        title: "Success",
-        description: "Listing saved to your favorites.",
-      });
-    } catch (error) {
-      console.error('Error saving listing:', error);
-      toast({
-        variant: "destructive",
-        title: "Error",
-        description: "Failed to save listing.",
-      });
-    }
-  };
-
-  const handleContactSeller = async () => {
-    try {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (!session) {
-        toast({
-          title: "Authentication required",
-          description: "Please log in to contact sellers.",
-        });
-        return;
-      }
-
-      // Navigate to messages or open message modal
-      toast({
-        title: "Coming soon",
-        description: "This feature is under development.",
-      });
-    } catch (error) {
-      console.error('Error:', error);
-    }
-  };
-
   if (loading) {
     return (
       <div>
         <Navigation />
-        <div className="pt-24 container mx-auto px-4">
-          <div className="animate-pulse space-y-4">
-            <div className="h-64 bg-gray-200 rounded-lg" />
-            <div className="h-8 bg-gray-200 w-3/4 rounded" />
-            <div className="h-4 bg-gray-200 w-1/2 rounded" />
-          </div>
-        </div>
+        <ListingDetailsLoading />
       </div>
     );
   }
@@ -139,15 +84,7 @@ const ListingDetails = () => {
     return (
       <div>
         <Navigation />
-        <div className="pt-24 container mx-auto px-4 text-center">
-          <h1 className="text-2xl font-bold">Listing not found</h1>
-          <p className="mt-2 text-muted-foreground">
-            The listing you're looking for doesn't exist or has been removed.
-          </p>
-          <Link to="/browse">
-            <Button className="mt-4">Back to Browse</Button>
-          </Link>
-        </div>
+        <ListingNotFound />
       </div>
     );
   }
@@ -160,62 +97,21 @@ const ListingDetails = () => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Main Content */}
           <div className="lg:col-span-2 space-y-6">
-            {/* Header Section */}
-            <div>
-              <div className="aspect-video relative rounded-lg overflow-hidden bg-muted">
-                <img
-                  src={listing.image || '/placeholder.svg'}
-                  alt={listing.title}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <div className="mt-4 flex items-start justify-between">
-                <div>
-                  <h1 className="text-3xl font-bold">{listing.title}</h1>
-                  <div className="mt-2 flex items-center gap-2">
-                    <Badge variant="secondary">{listing.category}</Badge>
-                    <Badge variant="outline">{listing.type}</Badge>
-                  </div>
-                </div>
-                <Button
-                  variant="outline"
-                  size="icon"
-                  onClick={handleSaveListing}
-                  className={isSaved ? 'text-primary' : ''}
-                >
-                  <Heart className="h-4 w-4" />
-                </Button>
-              </div>
-            </div>
+            <ListingHeader
+              title={listing.title}
+              category={listing.category}
+              type={listing.type}
+              image={listing.image}
+              listingId={listing.id}
+            />
 
-            {/* Listing Information */}
-            <Card>
-              <CardContent className="p-6 space-y-4">
-                <div className="space-y-2">
-                  <h2 className="text-xl font-semibold">About this {listing.category.toLowerCase()}</h2>
-                  <p className="text-muted-foreground">{listing.description}</p>
-                </div>
-
-                <Separator />
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <div className="flex items-center gap-2">
-                      <Box className="h-4 w-4 text-muted-foreground" />
-                      <span>Quantity: {listing.quantity} {listing.unit}</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Calendar className="h-4 w-4 text-muted-foreground" />
-                      <span>Available: {listing.availability_date}</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <MapPin className="h-4 w-4 text-muted-foreground" />
-                      <span>{listing.location}</span>
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+            <ListingInfo
+              description={listing.description}
+              quantity={listing.quantity}
+              unit={listing.unit}
+              availabilityDate={listing.availability_date}
+              location={listing.location}
+            />
 
             {/* Map Section */}
             <Card>
@@ -230,56 +126,7 @@ const ListingDetails = () => {
 
           {/* Sidebar */}
           <div className="space-y-6">
-            {/* Seller Information */}
-            <Card>
-              <CardContent className="p-6 space-y-4">
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-                    <span className="text-lg font-semibold text-primary">
-                      {listing.profiles?.display_name?.[0] || 'U'}
-                    </span>
-                  </div>
-                  <div>
-                    <h3 className="font-semibold">{listing.profiles?.display_name || 'User'}</h3>
-                    <div className="flex items-center gap-1 text-muted-foreground">
-                      <Star className="h-4 w-4" />
-                      <span>4.8</span>
-                      <span className="text-sm">(12 reviews)</span>
-                    </div>
-                  </div>
-                </div>
-
-                <Separator />
-
-                <div className="space-y-2">
-                  <p className="text-sm text-muted-foreground">{listing.profiles?.bio}</p>
-                  {listing.profiles?.show_contact_info && (
-                    <>
-                      <p className="text-sm">
-                        <MapPin className="h-4 w-4 inline mr-2" />
-                        {listing.profiles.location}
-                      </p>
-                      {listing.profiles.phone && (
-                        <p className="text-sm">
-                          <span className="font-medium">Phone:</span> {listing.profiles.phone}
-                        </p>
-                      )}
-                    </>
-                  )}
-                </div>
-
-                <div className="space-y-3">
-                  <Button className="w-full" onClick={handleContactSeller}>
-                    <MessageCircle className="mr-2 h-4 w-4" />
-                    Contact Seller
-                  </Button>
-                  <Button variant="outline" className="w-full">
-                    View Profile
-                    <ChevronRight className="ml-2 h-4 w-4" />
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
+            <ListerInfo profile={listing.profiles} />
 
             {/* Similar Listings */}
             <Card>
