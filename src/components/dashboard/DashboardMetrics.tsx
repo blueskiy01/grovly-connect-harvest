@@ -17,7 +17,6 @@ const DashboardMetrics = ({ userId, role }: DashboardMetricsProps) => {
   const [metrics, setMetrics] = useState({
     activeListings: 0,
     savedListings: 0,
-    totalInterests: 0,
     resourcesShared: 0,
     preOrders: 0,
     impact: 0
@@ -42,13 +41,19 @@ const DashboardMetrics = ({ userId, role }: DashboardMetricsProps) => {
           .select('*', { count: 'exact', head: true })
           .eq('user_id', userId);
 
+        // Get pre-orders count
+        const { count: preOrdersCount } = await supabase
+          .from('looking_for_offers')
+          .select('*', { count: 'exact', head: true })
+          .eq('user_id', userId);
+
         setMetrics(prev => ({
           ...prev,
           activeListings: listingsCount || 0,
           savedListings: savedCount || 0,
+          preOrders: preOrdersCount || 0,
           // Mock data for now - these would need new tables/columns
           resourcesShared: 10,
-          preOrders: 4,
           impact: 25
         }));
       } catch (error) {
@@ -83,12 +88,6 @@ const DashboardMetrics = ({ userId, role }: DashboardMetricsProps) => {
               value={metrics.activeListings}
               description="Active listings on the platform"
               onClick={() => handleMetricClick('listings')}
-            />
-            <MetricCard
-              title="Total Interests"
-              value={metrics.totalInterests}
-              description="People interested in your listings"
-              onClick={() => handleMetricClick('interests')}
             />
             <MetricCard
               title="Resources Shared"
