@@ -4,7 +4,7 @@ import Hero from '../components/how-it-works/Hero';
 import CallToAction from '../components/how-it-works/CallToAction';
 import harvest from '@/media/harvest.png'
 import mushroom from '@/media/mushroom.png'
-import farm_field from '@/media/farm_field.png'
+import food_table from '@/media/food_table.png'
 
 const HowItWorks = () => {
   const steps = [
@@ -16,7 +16,7 @@ const HowItWorks = () => {
         "Farmers: List current crops, future harvests, or available space for planting.",
         "Businesses: Share reusable byproducts (e.g., coffee grounds for mushroom farming)."
       ],
-      image: farm_field,
+      image: mushroom,
       imagePosition: 'right'
     },
     {
@@ -28,7 +28,7 @@ const HowItWorks = () => {
         "Consumers can browse available listings, express interest, or pre-order produce.",
         "Businesses connect with farmers to share resources (like compost or waste materials)."
       ],
-      image: mushroom,
+      image: food_table,
       imagePosition: 'left'
     },
     {
