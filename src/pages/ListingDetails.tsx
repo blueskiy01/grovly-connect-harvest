@@ -114,14 +114,16 @@ const ListingDetails = () => {
             />
 
             {/* Map Section */}
-            <Card>
-              <CardContent className="p-6">
-                <h2 className="text-xl font-semibold mb-4">Location</h2>
-                <div className="h-[300px] rounded-lg overflow-hidden">
-                  <Map />
-                </div>
-              </CardContent>
-            </Card>
+            {listing.location && (
+              <Card>
+                <CardContent className="p-6">
+                  <h2 className="text-xl font-semibold mb-4">Location</h2>
+                  <div className="h-[300px] rounded-lg overflow-hidden">
+                    <Map location={listing.location} />
+                  </div>
+                </CardContent>
+              </Card>
+            )}
           </div>
 
           {/* Sidebar */}
