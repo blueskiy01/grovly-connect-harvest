@@ -47,7 +47,6 @@ const DashboardMetrics = ({ userId, role }: DashboardMetricsProps) => {
           activeListings: listingsCount || 0,
           savedListings: savedCount || 0,
           // Mock data for now - these would need new tables/columns
-          totalInterests: 30,
           resourcesShared: 10,
           preOrders: 4,
           impact: 25
@@ -102,18 +101,12 @@ const DashboardMetrics = ({ userId, role }: DashboardMetricsProps) => {
         );
       case 'consumer':
         return (
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-4 md:grid-cols-2">
             <MetricCard
               title="Saved Listings"
               value={metrics.savedListings}
               description="Listings you're interested in"
               onClick={() => handleMetricClick('saved')}
-            />
-            <MetricCard
-              title="Interests Shared"
-              value={2}
-              description="Crops you're looking for"
-              onClick={() => handleMetricClick('interests')}
             />
             <MetricCard
               title="Pre-orders Made"
