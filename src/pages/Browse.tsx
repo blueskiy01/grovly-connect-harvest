@@ -54,7 +54,8 @@ const Browse = () => {
           query = query.lte('availability_date', new Date().toISOString());
         }
 
-        const { data, error } = await query;
+        // Execute the query
+        const { data, error } = await query.select();
 
         if (error) throw error;
         
