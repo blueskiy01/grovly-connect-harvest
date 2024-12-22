@@ -1,6 +1,3 @@
-Here is the updated `README.md` with improved styling:
-
-```markdown
 <div align="center">
   <h1><strong>Grovly</strong></h1>
   <p>A platform connecting farmers, consumers, and businesses to reduce waste, share resources, and grow together sustainably. Grovly fosters local, circular economies by enabling users to list produce, exchange goods, and connect for mutual benefit.</p>
@@ -129,6 +126,3 @@ For questions or support, contact us at:
 ## Changelogs
 
 Stay up to date with the latest changes and improvements: [View Changelogs](https://github.com/blueskiy01/grovly-connect-harvest/releases).
-```
-
-This version improves readability and organization of the content.
