@@ -18,9 +18,10 @@ interface ListerInfoProps {
     show_contact_info: boolean | null;
   };
   listingId: string;
+  listingTitle: string;
 }
 
-const ListerInfo = ({ profile, listingId }: ListerInfoProps) => {
+const ListerInfo = ({ profile, listingId, listingTitle }: ListerInfoProps) => {
   const { toast } = useToast();
   const navigate = useNavigate();
   const [isMessageDialogOpen, setIsMessageDialogOpen] = useState(false);
@@ -114,6 +115,7 @@ const ListerInfo = ({ profile, listingId }: ListerInfoProps) => {
         message={message}
         onMessageChange={setMessage}
         onSend={handleSendMessage}
+        listingTitle={listingTitle}
       />
     </>
   );

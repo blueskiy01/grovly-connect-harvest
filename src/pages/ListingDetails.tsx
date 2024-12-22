@@ -75,7 +75,11 @@ const ListingDetails = () => {
             {/* Sidebar */}
             <div className="lg:col-span-1">
               <div className="sticky top-24">
-                <ListerInfo profile={profile} listingId={listing.id} />
+                <ListerInfo 
+                  profile={profile} 
+                  listingId={listing.id} 
+                  listingTitle={listing.title}
+                />
               </div>
             </div>
           </div>
