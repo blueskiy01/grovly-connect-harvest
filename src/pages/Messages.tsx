@@ -5,7 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2 } from 'lucide-react';
+import { Loader2, X } from 'lucide-react';
 import { format } from 'date-fns';
 
 const Messages = () => {
@@ -76,6 +76,31 @@ const Messages = () => {
       : '?';
   };
 
+  const deleteMessage = async (messageId: string) => {
+    try {
+      const { error } = await supabase
+        .from('messages')
+        .delete()
+        .eq('id', messageId);
+
+      if (error) throw error;
+
+      // Update local state to remove the deleted message
+      setMessages(messages.filter(msg => msg.id !== messageId));
+      
+      toast({
+        title: "Message deleted",
+        description: "The message has been moved to trash",
+      });
+    } catch (error: any) {
+      toast({
+        title: "Error deleting message",
+        description: error.message,
+        variant: "destructive",
+      });
+    }
+  };
+
   if (loading) {
     return (
       <div className="container mx-auto p-6 min-h-screen pt-24">
@@ -114,15 +139,25 @@ const Messages = () => {
                           {format(new Date(message.created_at), 'PPp')}
                         </p>
                       </div>
-                      {!message.read && (
+                      <div className="flex items-center gap-2">
+                        {!message.read && (
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => markAsRead(message.id)}
+                          >
+                            Mark as Read
+                          </Button>
+                        )}
                         <Button
                           variant="ghost"
-                          size="sm"
-                          onClick={() => markAsRead(message.id)}
+                          size="icon"
+                          onClick={() => deleteMessage(message.id)}
+                          className="text-muted-foreground hover:text-destructive"
                         >
-                          Mark as Read
+                          <X className="h-4 w-4" />
                         </Button>
-                      )}
+                      </div>
                     </div>
                     <p className="text-sm">{message.content}</p>
                   </div>
@@ -143,11 +178,21 @@ const Messages = () => {
                     <AvatarFallback>{getInitials(message.recipient?.display_name)}</AvatarFallback>
                   </Avatar>
                   <div className="flex-1 space-y-1">
-                    <div>
-                      <p className="font-medium">To: {message.recipient?.display_name}</p>
-                      <p className="text-sm text-muted-foreground">
-                        {format(new Date(message.created_at), 'PPp')}
-                      </p>
+                    <div className="flex items-start justify-between">
+                      <div>
+                        <p className="font-medium">To: {message.recipient?.display_name}</p>
+                        <p className="text-sm text-muted-foreground">
+                          {format(new Date(message.created_at), 'PPp')}
+                        </p>
+                      </div>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        onClick={() => deleteMessage(message.id)}
+                        className="text-muted-foreground hover:text-destructive"
+                      >
+                        <X className="h-4 w-4" />
+                      </Button>
                     </div>
                     <p className="text-sm">{message.content}</p>
                   </div>
