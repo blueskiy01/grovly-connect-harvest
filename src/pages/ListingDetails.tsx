@@ -58,7 +58,12 @@ const ListingDetails = () => {
       <Navigation />
       <div className="pt-20 pb-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <ListingHeader listing={listing} />
+          <ListingHeader 
+            title={listing.title}
+            category={listing.category}
+            type={listing.type}
+            listingId={listing.id}
+          />
 
           <div className="mt-8 grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Main Content */}
