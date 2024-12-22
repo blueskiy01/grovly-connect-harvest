@@ -4,6 +4,9 @@ import Hero from '../components/how-it-works/Hero';
 import Step from '../components/how-it-works/Step';
 import Testimonial from '../components/how-it-works/Testimonial';
 import CallToAction from '../components/how-it-works/CallToAction';
+import helena from '@/media/helena.png';
+import karl from '@/media/karl.png';
+import lin from '@/media/lin.png';
 
 const HowItWorks = () => {
   const steps = [
@@ -40,23 +43,24 @@ const HowItWorks = () => {
   const testimonials = [
     {
       quote: "I shared my interest in bok choy, and now a local farmer grows it just for us!",
-      author: "Anna",
+      author: "Lin",
       role: "Consumer",
-      image: "/placeholder.svg"
+      image: lin, // Pass the imported image directly
     },
     {
       quote: "By seeing demand trends early, I planted garlic and sold out my entire harvest!",
-      author: "Marko",
+      author: "Karl",
       role: "Farmer",
-      image: "/placeholder.svg"
+      image: karl, // Pass the imported image directly
     },
     {
-      quote: "We repurpose our coffee grounds for local mushroom farmers, reducing waste and helping the community!",
+      quote: "We repurpose our coffee grounds to a local mushroom start-up, reducing waste and helping the community!",
       author: "Helena",
       role: "Café Owner",
-      image: "/placeholder.svg"
+      image: helena, // Pass the imported image directly
     }
   ];
+  
 
   return (
     <div className="min-h-screen bg-cream">
