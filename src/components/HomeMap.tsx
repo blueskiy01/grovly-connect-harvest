@@ -33,12 +33,12 @@ const HomeMap = () => {
       try {
         if (!mapContainer.current || listings.length === 0) return;
 
-        // Initialize map centered on a default location
+        // Initialize map centered on Nordic region
         map.current = new mapboxgl.Map({
           container: mapContainer.current,
           style: 'mapbox://styles/mapbox/streets-v12',
-          center: [0, 20], // Default center
-          zoom: 2,
+          center: [15.5, 62.8], // Centered approximately on Sweden
+          zoom: 4, // Zoom level to show most of Nordic region
         });
 
         map.current.addControl(new mapboxgl.NavigationControl(), 'top-right');
