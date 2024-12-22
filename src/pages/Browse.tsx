@@ -2,9 +2,12 @@ import { useState, useEffect } from 'react';
 import Navigation from '../components/Navigation';
 import { ListingCard } from '@/components/listings/ListingCard';
 import { ListingFilters } from '@/components/listings/ListingFilters';
+import { LookingForCard } from '@/components/looking-for/LookingForCard';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import type { Listing } from '@/types/listings';
+import type { LookingForRequest } from '@/types/looking-for';
 
 const Browse = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -13,11 +16,13 @@ const Browse = () => {
   const [location, setLocation] = useState('');
   const [availability, setAvailability] = useState('');
   const [listings, setListings] = useState<Listing[]>([]);
+  const [lookingForRequests, setLookingForRequests] = useState<LookingForRequest[]>([]);
   const [loading, setLoading] = useState(true);
   const { toast } = useToast();
 
   useEffect(() => {
     fetchListings();
+    fetchLookingForRequests();
   }, []);
 
   const fetchListings = async () => {
@@ -51,6 +56,32 @@ const Browse = () => {
       console.error('Error:', error);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const fetchLookingForRequests = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('looking_for_requests')
+        .select('*, profiles(display_name)')
+        .eq('status', 'active')
+        .order('created_at', { ascending: false });
+
+      if (error) {
+        console.error('Error fetching looking for requests:', error);
+        toast({
+          variant: "destructive",
+          title: "Error fetching requests",
+          description: error.message
+        });
+        return;
+      }
+
+      if (data) {
+        setLookingForRequests(data);
+      }
+    } catch (error) {
+      console.error('Error:', error);
     }
   };
 
@@ -153,28 +184,45 @@ const Browse = () => {
       <Navigation />
       
       <main className="container mx-auto px-4 pt-24">
-        <ListingFilters
-          searchTerm={searchTerm}
-          setSearchTerm={setSearchTerm}
-          produceType={produceType}
-          setProduceType={setProduceType}
-          resourceType={resourceType}
-          setResourceType={setResourceType}
-          location={location}
-          setLocation={setLocation}
-          availability={availability}
-          setAvailability={setAvailability}
-        />
+        <Tabs defaultValue="listings" className="w-full">
+          <TabsList className="grid w-full grid-cols-2 mb-8">
+            <TabsTrigger value="listings">Available Listings</TabsTrigger>
+            <TabsTrigger value="looking-for">Looking For</TabsTrigger>
+          </TabsList>
 
-        {loading ? (
-          <div className="text-center">Loading listings...</div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-            {listings.map((listing) => (
-              <ListingCard key={listing.id} listing={listing} />
-            ))}
-          </div>
-        )}
+          <TabsContent value="listings">
+            <ListingFilters
+              searchTerm={searchTerm}
+              setSearchTerm={setSearchTerm}
+              produceType={produceType}
+              setProduceType={setProduceType}
+              resourceType={resourceType}
+              setResourceType={setResourceType}
+              location={location}
+              setLocation={setLocation}
+              availability={availability}
+              setAvailability={setAvailability}
+            />
+
+            {loading ? (
+              <div className="text-center">Loading listings...</div>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                {listings.map((listing) => (
+                  <ListingCard key={listing.id} listing={listing} />
+                ))}
+              </div>
+            )}
+          </TabsContent>
+
+          <TabsContent value="looking-for">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+              {lookingForRequests.map((request) => (
+                <LookingForCard key={request.id} request={request} />
+              ))}
+            </div>
+          </TabsContent>
+        </Tabs>
       </main>
     </div>
   );

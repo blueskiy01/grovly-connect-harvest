@@ -65,6 +65,107 @@ export type Database = {
           },
         ]
       }
+      looking_for_offers: {
+        Row: {
+          created_at: string
+          id: string
+          message: string
+          request_id: string
+          status: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          message: string
+          request_id: string
+          status?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          message?: string
+          request_id?: string
+          status?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "looking_for_offers_request_id_fkey"
+            columns: ["request_id"]
+            isOneToOne: false
+            referencedRelation: "looking_for_requests"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "looking_for_offers_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      looking_for_requests: {
+        Row: {
+          category: string
+          created_at: string
+          description: string | null
+          end_date: string | null
+          id: string
+          location: string | null
+          quantity: number | null
+          start_date: string | null
+          status: Database["public"]["Enums"]["looking_for_status"] | null
+          title: string
+          unit: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          category: string
+          created_at?: string
+          description?: string | null
+          end_date?: string | null
+          id?: string
+          location?: string | null
+          quantity?: number | null
+          start_date?: string | null
+          status?: Database["public"]["Enums"]["looking_for_status"] | null
+          title: string
+          unit?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          description?: string | null
+          end_date?: string | null
+          id?: string
+          location?: string | null
+          quantity?: number | null
+          start_date?: string | null
+          status?: Database["public"]["Enums"]["looking_for_status"] | null
+          title?: string
+          unit?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "looking_for_requests_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       messages: {
         Row: {
           content: string
@@ -194,6 +295,7 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
+      looking_for_status: "active" | "fulfilled" | "expired"
       user_role: "farmer" | "consumer" | "business"
     }
     CompositeTypes: {
