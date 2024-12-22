@@ -12,16 +12,6 @@ const Contact = () => {
             Have a question or feedback? We'd love to hear from you.
           </p>
         </div>
-
-        {/* Contact Information Section */}
-        <div className="bg-white shadow rounded-lg p-8 md:p-12 space-y-8">
-          <h2 className="text-3xl font-semibold text-charcoal text-center">
-            Connect with Us
-          </h2>
-          <p className="text-charcoal/80 text-center max-w-2xl mx-auto">
-            Stay tuned for more updates.
-          </p>
-
           {/* Contact Details */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {/* LinkedIn */}
@@ -49,7 +39,6 @@ const Contact = () => {
           </div>
         </div>
       </div>
-    </div>
   );
 };
 
