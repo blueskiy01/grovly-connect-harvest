@@ -25,7 +25,10 @@ const SaveListingButton = ({ listingId }: SaveListingButtonProps) => {
 
       const { error } = await supabase
         .from('saved_listings')
-        .upsert({ user_id: session.user.id, listing_id: listingId });
+        .insert({
+          listing_id: listingId,
+          user_id: session.user.id  // Explicitly set the user_id
+        });
 
       if (error) throw error;
 
@@ -39,7 +42,7 @@ const SaveListingButton = ({ listingId }: SaveListingButtonProps) => {
       toast({
         variant: "destructive",
         title: "Error",
-        description: "Failed to save listing.",
+        description: "Failed to save listing. Please try again.",
       });
     }
   };
