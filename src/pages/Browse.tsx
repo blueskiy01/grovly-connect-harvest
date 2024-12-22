@@ -42,6 +42,11 @@ const Browse = () => {
         console.log('Fetched listings:', data);
         setListings(data);
       }
+
+      // If no listings exist, insert sample listings
+      if (!data || data.length === 0) {
+        await insertSampleListings();
+      }
     } catch (error) {
       console.error('Error:', error);
     } finally {
@@ -49,102 +54,99 @@ const Browse = () => {
     }
   };
 
-  // Insert sample listings if none exist
-  useEffect(() => {
-    const insertSampleListings = async () => {
-      if (listings.length === 0) {
-        const { data: { user } } = await supabase.auth.getUser();
-        
-        if (!user) {
-          console.log('User not authenticated, skipping sample listings insertion');
-          return;
-        }
-
-        const sampleListings = [
-          {
-            title: 'Organic Heritage Garlic',
-            type: 'Produce',
-            category: 'Vegetables',
-            location: 'Uppsala, Sweden',
-            quantity: 50,
-            unit: 'kg',
-            description: 'Pre-order our award-winning Nordic garlic varieties. Perfect for traditional dishes.',
-            availability_date: '2024-08-15',
-            user_id: user.id,
-            status: 'active'
-          },
-          {
-            title: 'Fresh Coffee Grounds for Composting',
-            type: 'Resource',
-            category: 'Compost',
-            location: 'Stockholm, Sweden',
-            quantity: 20,
-            unit: 'kg',
-            description: 'Weekly available coffee grounds from our local café. Great for mushroom growing and composting.',
-            availability_date: '2024-04-20',
-            user_id: user.id,
-            status: 'active'
-          },
-          {
-            title: 'Organic Lingonberries',
-            type: 'Produce',
-            category: 'Berries',
-            location: 'Gothenburg, Sweden',
-            quantity: 30,
-            unit: 'kg',
-            description: 'Wild-harvested lingonberries from sustainable forest areas.',
-            availability_date: '2024-09-01',
-            user_id: user.id,
-            status: 'active'
-          },
-          {
-            title: 'Spent Grain from Local Brewery',
-            type: 'Resource',
-            category: 'Animal Feed',
-            location: 'Malmö, Sweden',
-            quantity: 100,
-            unit: 'kg',
-            description: 'Weekly available spent grain. High in protein, perfect for livestock feed or composting.',
-            availability_date: '2024-04-25',
-            user_id: user.id,
-            status: 'active'
-          },
-          {
-            title: 'Horse Manure - Aged',
-            type: 'Resource',
-            category: 'Fertilizer',
-            location: 'Oslo, Norway',
-            quantity: 500,
-            unit: 'kg',
-            description: 'Well-aged horse manure from our organic farm. Perfect for soil enrichment.',
-            availability_date: '2024-04-22',
-            user_id: user.id,
-            status: 'active'
-          }
-        ];
-
-        for (const listing of sampleListings) {
-          const { error } = await supabase
-            .from('listings')
-            .insert([listing]);
-          
-          if (error) {
-            console.error('Error inserting sample listing:', error);
-            toast({
-              variant: "destructive",
-              title: "Error inserting sample listing",
-              description: error.message
-            });
-          }
-        }
-
-        // Fetch the listings again after inserting samples
-        fetchListings();
+  const insertSampleListings = async () => {
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      
+      if (!user) {
+        console.log('User not authenticated, skipping sample listings insertion');
+        return;
       }
-    };
 
-    insertSampleListings();
-  }, [listings.length]);
+      const sampleListings = [
+        {
+          title: 'Apple Peels for Composting',
+          type: 'Resource',
+          category: 'Compost',
+          location: 'Mariehamn, Åland',
+          quantity: 10,
+          unit: 'kg/week',
+          description: 'Organic apple peels from our juicing process, ideal for compost.',
+          availability_date: new Date().toISOString().split('T')[0],
+          user_id: user.id,
+          status: 'active'
+        },
+        {
+          title: 'Fresh Herbs – Available Weekly',
+          type: 'Produce',
+          category: 'Herbs',
+          location: 'Jomala, Åland',
+          quantity: 1,
+          unit: 'bundle',
+          description: 'Mint, basil, and thyme available freshly harvested every week.',
+          availability_date: new Date().toISOString().split('T')[0],
+          user_id: user.id,
+          status: 'active'
+        },
+        {
+          title: 'Fresh Garlic',
+          type: 'Produce',
+          category: 'Vegetables',
+          location: 'Åland, Finland',
+          quantity: 10,
+          unit: 'kg',
+          description: 'Organically grown garlic. Available in 1kg boxes.',
+          availability_date: new Date().toISOString().split('T')[0],
+          user_id: user.id,
+          status: 'active'
+        },
+        {
+          title: 'Organic Lingonberries',
+          type: 'Produce',
+          category: 'Berries',
+          location: 'Gothenburg, Sweden',
+          quantity: 30,
+          unit: 'kg',
+          description: 'Wild-harvested lingonberries from sustainable forest areas.',
+          availability_date: new Date().toISOString().split('T')[0],
+          user_id: user.id,
+          status: 'active'
+        },
+        {
+          title: 'Spent Grain from Local Brewery',
+          type: 'Resource',
+          category: 'Animal Feed',
+          location: 'Malmö, Sweden',
+          quantity: 100,
+          unit: 'kg',
+          description: 'Weekly available spent grain. High in protein, perfect for livestock feed or composting.',
+          availability_date: new Date().toISOString().split('T')[0],
+          user_id: user.id,
+          status: 'active'
+        }
+      ];
+
+      for (const listing of sampleListings) {
+        const { error } = await supabase
+          .from('listings')
+          .insert([listing]);
+        
+        if (error) {
+          console.error('Error inserting sample listing:', error);
+          toast({
+            variant: "destructive",
+            title: "Error inserting sample listing",
+            description: error.message
+          });
+        }
+      }
+
+      // Fetch the listings again after inserting samples
+      fetchListings();
+    } catch (error) {
+      console.error('Error inserting sample listings:', error);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-background">
