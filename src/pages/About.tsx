@@ -18,7 +18,7 @@ const About = () => {
             Connecting Communities, Reducing Waste, and Growing Together
           </h1>
           <p className="text-lg md:text-xl text-center text-charcoal/80 max-w-3xl mx-auto">
-            Grovly is a platform that bridges the gap between farmers, consumers, and businesses 
+            Grovly stands for a lovely growing community. It is a platform that bridges the gap between farmers, consumers, and businesses 
             to create a sustainable, local food ecosystem.
           </p>
         </div>
