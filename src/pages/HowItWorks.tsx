@@ -1,12 +1,10 @@
 import { Share, Leaf, Handshake } from 'lucide-react';
 import Navigation from '../components/Navigation';
 import Hero from '../components/how-it-works/Hero';
-import Step from '../components/how-it-works/Step';
-import Testimonial from '../components/how-it-works/Testimonial';
 import CallToAction from '../components/how-it-works/CallToAction';
-import helena from '@/media/helena.png';
-import karl from '@/media/karl.png';
-import lin from '@/media/lin.png';
+import harvest from '@/media/harvest.png'
+import mushroom from '@/media/mushroom.png'
+import farm_field from '@/media/farm_field.png'
 
 const HowItWorks = () => {
   const steps = [
@@ -17,7 +15,9 @@ const HowItWorks = () => {
         'Consumers: Share your interest in specific produce (e.g., "I\'d like locally grown bok choy").',
         "Farmers: List current crops, future harvests, or available space for planting.",
         "Businesses: Share reusable byproducts (e.g., coffee grounds for mushroom farming)."
-      ]
+      ],
+      image: farm_field,
+      imagePosition: 'right'
     },
     {
       icon: <Handshake className="w-12 h-12 text-primary" />,
@@ -27,7 +27,9 @@ const HowItWorks = () => {
         'Example: "20 people want bok choy this season? Let\'s plant it!"',
         "Consumers can browse available listings, express interest, or pre-order produce.",
         "Businesses connect with farmers to share resources (like compost or waste materials)."
-      ]
+      ],
+      image: mushroom,
+      imagePosition: 'left'
     },
     {
       icon: <Leaf className="w-12 h-12 text-primary" />,
@@ -36,64 +38,49 @@ const HowItWorks = () => {
         "Farmers grow crops knowing there's demand, reducing waste and increasing profitability.",
         "Consumers receive fresh, local produce and support sustainable farming.",
         "Businesses and farmers close the loop by reusing resources, contributing to a circular economy."
-      ]
+      ],
+      image: harvest,
+      imagePosition: 'right'
     }
   ];
-
-  const testimonials = [
-    {
-      quote: "I shared my interest in bok choy, and now a local farmer grows it just for us!",
-      author: "Lin",
-      role: "Consumer",
-      image: lin,  
-    },
-    {
-      quote: "By seeing demand trends early, I planted garlic and sold out my entire harvest!",
-      author: "Karl",
-      role: "Farmer",
-      image: karl, 
-    },
-    {
-      quote: "We repurpose our coffee grounds to a local mushroom start-up, reducing waste and helping the community!",
-      author: "Helena",
-      role: "Café Owner",
-      image: helena,  
-    }
-  ];
-  
 
   return (
     <div className="min-h-screen bg-cream">
       <Navigation />
       <Hero />
-      
-      {/* Steps Section */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <div className="space-y-20">
-          {steps.map((step, index) => (
-            <Step
-              key={step.title}
-              {...step}
-              imagePosition={index % 2 === 1 ? 'left' : 'right'}
-            />
-          ))}
-        </div>
-      </div>
 
-      {/* Success Stories Section */}
-      <div className="bg-cream-dark py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-center mb-16">Success Stories</h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            {testimonials.map((testimonial, index) => (
-              <Testimonial
-                key={testimonial.author}
-                {...testimonial}
-                delay={index * 200}
+      {/* Steps Section */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 space-y-20">
+        {steps.map((step, index) => (
+          <div
+            key={index}
+            className={`flex flex-col md:flex-row items-center gap-12 ${
+              step.imagePosition === 'right' ? 'md:flex-row' : 'md:flex-row-reverse'
+            }`}
+          >
+            <div className="flex-1 space-y-6">
+              <div className="inline-block p-4 bg-cream-dark rounded-2xl">
+                {step.icon}
+              </div>
+              <h2 className="text-3xl font-bold text-charcoal">{step.title}</h2>
+              <ul className="space-y-4">
+                {step.description.map((item, i) => (
+                  <li key={i} className="flex items-start gap-2">
+                    <span className="w-5 h-5 text-primary flex-shrink-0 mt-1">➔</span>
+                    <span className="text-charcoal-light">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="flex-1">
+              <img
+                src={step.image}
+                alt={`Step illustration: ${step.title}`}
+                className="w-full h-auto rounded-xl shadow-lg"
               />
-            ))}
+            </div>
           </div>
-        </div>
+        ))}
       </div>
 
       <CallToAction />
