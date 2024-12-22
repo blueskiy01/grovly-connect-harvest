@@ -5,6 +5,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { useNavigate, Link } from 'react-router-dom';
 import Navigation from '@/components/Navigation';
 import { Separator } from '@/components/ui/separator';
+import { SessionContextProvider } from '@supabase/auth-helpers-react';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -36,63 +37,65 @@ const Login = () => {
               </p>
             </div>
 
-            <Auth
-              supabaseClient={supabase}
-              appearance={{
-                theme: ThemeSupa,
-                style: {
-                  button: {
-                    background: '#2D3319',
-                    borderRadius: '8px',
-                    color: 'white',
-                    fontSize: '14px',
-                    padding: '10px 15px',
-                  },
-                  anchor: {
-                    color: '#4A5827',
-                    textDecoration: 'none',
-                    fontWeight: '500',
-                  },
-                  input: {
-                    borderRadius: '8px',
-                    padding: '10px 15px',
-                  },
-                  message: {
-                    borderRadius: '6px',
-                    fontSize: '14px',
-                    padding: '10px',
-                  },
-                },
-                variables: {
-                  default: {
-                    colors: {
-                      brand: '#2D3319',
-                      brandAccent: '#4A5827',
-                      inputBackground: 'white',
-                      inputBorder: '#E2E8F0',
-                      inputBorderHover: '#CBD5E1',
-                      inputBorderFocus: '#2D3319',
+            <SessionContextProvider supabaseClient={supabase}>
+              <Auth
+                supabaseClient={supabase}
+                appearance={{
+                  theme: ThemeSupa,
+                  style: {
+                    button: {
+                      background: '#2D3319',
+                      borderRadius: '8px',
+                      color: 'white',
+                      fontSize: '14px',
+                      padding: '10px 15px',
                     },
-                    space: {
-                      inputPadding: '10px 15px',
-                      buttonPadding: '10px 15px',
+                    anchor: {
+                      color: '#4A5827',
+                      textDecoration: 'none',
+                      fontWeight: '500',
                     },
-                    borderWidths: {
-                      buttonBorderWidth: '1px',
-                      inputBorderWidth: '1px',
+                    input: {
+                      borderRadius: '8px',
+                      padding: '10px 15px',
                     },
-                    radii: {
-                      borderRadiusButton: '8px',
-                      buttonBorderRadius: '8px',
-                      inputBorderRadius: '8px',
+                    message: {
+                      borderRadius: '6px',
+                      fontSize: '14px',
+                      padding: '10px',
                     },
                   },
-                },
-              }}
-              providers={['google']}
-              redirectTo={`${window.location.origin}/dashboard`}
-              view="sign_in"
-            />
+                  variables: {
+                    default: {
+                      colors: {
+                        brand: '#2D3319',
+                        brandAccent: '#4A5827',
+                        inputBackground: 'white',
+                        inputBorder: '#E2E8F0',
+                        inputBorderHover: '#CBD5E1',
+                        inputBorderFocus: '#2D3319',
+                      },
+                      space: {
+                        inputPadding: '10px 15px',
+                        buttonPadding: '10px 15px',
+                      },
+                      borderWidths: {
+                        buttonBorderWidth: '1px',
+                        inputBorderWidth: '1px',
+                      },
+                      radii: {
+                        borderRadiusButton: '8px',
+                        buttonBorderRadius: '8px',
+                        inputBorderRadius: '8px',
+                      },
+                    },
+                  },
+                }}
+                providers={['google']}
+                redirectTo={`${window.location.origin}/dashboard`}
+                view="sign_in"
+              />
+            </SessionContextProvider>
 
             <div className="text-center space-y-4">
               <Separator className="my-4" />
