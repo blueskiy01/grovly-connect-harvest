@@ -1,69 +1,103 @@
-# Welcome to your Lovable project
+# **Grovly**  
+A platform connecting farmers, consumers, and businesses to reduce waste, share resources, and grow together sustainably. Grovly fosters local, circular economies by enabling users to list produce, express interest in niche crops, and repurpose reusable resources.
 
-## Project info
+---
 
-**URL**: https://lovable.dev/projects/2bb3a0fe-50de-4387-8707-4ef7ba51ba5a
+## **Features**  
+- **Farmers**:  
+  - List surplus produce or planned harvests.  
+  - Gain insights into demand for specific crops.  
+  - Connect with businesses for resource-sharing opportunities.  
 
-## How can I edit this code?
+- **Consumers**:  
+  - Discover fresh, local produce.  
+  - Express interest in niche crops to influence farming decisions.  
+  - Pre-order seasonal items.  
 
-There are several ways of editing your application.
+- **Businesses**:  
+  - Share reusable resources (e.g., coffee grounds, compost materials).  
+  - Collaborate with local farmers for sustainability.  
 
-**Use Lovable**
+---
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/2bb3a0fe-50de-4387-8707-4ef7ba51ba5a) and start prompting.
+## **Technologies Used**  
+- **Frontend**: React.js  
+- **Backend**: Node.js (Express.js)  
+- **Database**: PostgreSQL  
+- **Authentication**: Supabase Auth  
+- **Hosting**: Vercel / Netlify (for frontend)  
+- **Styling**: Tailwind CSS  
 
-Changes made via Lovable will be committed automatically to this repo.
+---
 
-**Use your preferred IDE**
+## **Getting Started**  
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### **Prerequisites**  
+Make sure you have the following installed:  
+- [Node.js](https://nodejs.org/) (v14 or higher)  
+- npm or yarn  
+- [Supabase CLI](https://supabase.com/docs/guides/cli)  
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+### **Setup**  
 
-Follow these steps:
+1. **Clone the Repository**:  
+   ```bash
+   git clone https://github.com/blueskiy01/grovly-connect-harvest.git
+   cd grovly-connect-harvest  
+    ```
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+2. **Install Dependencies**:  
+  ```bash
+npm install
+# or
+yarn install
+   ```
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+3. **Environment Variables**:
+Create a `.env` file in the root directory and add the following:
 
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+```env
+REACT_APP_SUPABASE_URL=<your-supabase-url>
+REACT_APP_SUPABASE_KEY=<your-supabase-anon-key>
 ```
 
-**Edit a file directly in GitHub**
+4. **Run Supabase Locally(Optional)**:
+If testing locally, initialize Supabase with:
+ ```bash
+supabase start
+```
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+5. **Start the Development Server**:
+   ```bash
+ npm start
+ # or
+ yarn start
+   ```
 
-**Use GitHub Codespaces**
+6. **Access the App**:
+Open your browser and navigate to `http://localhost:3000.`
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## **Contributing**  
+We welcome contributions to Grovly! To contribute:
+1.**Fork the repository.**'
+2.**Create a new branch**:
+```bash
+git checkout -b feature/your-feature-name
+```
+3.**Commit your changes**:
+```bash
+git commit -m "Add your message here"  
+```
+4.**Push to your fork and submit a Pull Request.**
 
-## What technologies are used for this project?
+## **License**  
+This project is licensed under the MIT License. See the LICENSE file for details.
 
-This project is built with .
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/2bb3a0fe-50de-4387-8707-4ef7ba51ba5a) and click on Share -> Publish.
-
-## I want to use a custom domain - is that possible?
-
-We don't support custom domains (yet). If you want to deploy your project under your own domain then we recommend using Netlify. Visit our docs for more details: [Custom domains](https://docs.lovable.dev/tips-tricks/custom-domain/)
+## **Contact**  
+For questions or support, contact us at:  
+-GitHub Issues: [Submit an issue](https://github.com/blueskiy01/grovly-connect-harvest/issues)
+ 
+## **Future Enhancements**  
+-Mobile app for Android and iOS.
+-Advanced analytics for farmers and businesses.
+-Integration with third-party delivery services.
