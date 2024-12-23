@@ -41,7 +41,7 @@ const DashboardMetrics = ({ userId, role }: DashboardMetricsProps) => {
           .select('*', { count: 'exact', head: true })
           .eq('user_id', userId);
 
-        // Get pre-orders count - Fixed query to properly handle the relationship
+        // Get pre-orders count - Fixed query syntax for OR condition
         const { data: preOrdersData, error: preOrdersError } = await supabase
           .from('looking_for_offers')
           .select(`
@@ -50,7 +50,7 @@ const DashboardMetrics = ({ userId, role }: DashboardMetricsProps) => {
               user_id
             )
           `)
-          .or(`user_id.eq.${userId},looking_for_requests.user_id.eq.${userId}`);
+          .or('user_id.eq.' + userId + ',looking_for_requests.user_id.eq.' + userId);
 
         if (preOrdersError) {
           console.error('Error fetching pre-orders:', preOrdersError);
