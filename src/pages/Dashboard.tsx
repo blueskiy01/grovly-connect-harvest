@@ -27,13 +27,25 @@ const Dashboard = () => {
         }
 
         setUser(session.user);
-        const { data: profileData, error } = await supabase
+        
+        // First get the user profile
+        const { data: profileData, error: profileError } = await supabase
           .from('profiles')
           .select('id, role')
           .eq('id', session.user.id)
-          .single();
+          .maybeSingle();
 
-        if (error) throw error;
+        if (profileError) {
+          console.error('Profile fetch error:', profileError);
+          throw profileError;
+        }
+
+        if (!profileData) {
+          console.error('No profile found');
+          navigate('/login');
+          return;
+        }
+
         setProfile(profileData);
       } catch (error) {
         console.error('Error:', error);
