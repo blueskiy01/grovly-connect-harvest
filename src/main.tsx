@@ -10,7 +10,12 @@ if (!container) throw new Error('Could not find root element');
 const root = createRoot(container);
 
 root.render(
-  <SessionContextProvider supabaseClient={supabase}>
-    <App />
-  </SessionContextProvider>
+  <React.StrictMode>
+    <SessionContextProvider 
+      supabaseClient={supabase}
+      initialSession={null}
+    >
+      <App />
+    </SessionContextProvider>
+  </React.StrictMode>
 );
