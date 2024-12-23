@@ -41,11 +41,16 @@ const DashboardMetrics = ({ userId, role }: DashboardMetricsProps) => {
           .select('*', { count: 'exact', head: true })
           .eq('user_id', userId);
 
-        // Get pre-orders count
+        // Get pre-orders count - Updated query to match RLS policy
         const { count: preOrdersCount } = await supabase
           .from('looking_for_offers')
-          .select('*', { count: 'exact', head: true })
-          .eq('user_id', userId);
+          .select(`
+            *,
+            looking_for_requests!inner (
+              user_id
+            )
+          `, { count: 'exact', head: true })
+          .or(`user_id.eq.${userId},looking_for_requests.user_id.eq.${userId}`);
 
         setMetrics(prev => ({
           ...prev,
