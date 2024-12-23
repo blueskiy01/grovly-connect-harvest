@@ -41,22 +41,26 @@ const DashboardMetrics = ({ userId, role }: DashboardMetricsProps) => {
           .select('*', { count: 'exact', head: true })
           .eq('user_id', userId);
 
-        // Get pre-orders count - Updated query to match RLS policy
-        const { count: preOrdersCount } = await supabase
+        // Get pre-orders count - Fixed query to properly handle the relationship
+        const { data: preOrdersData, error: preOrdersError } = await supabase
           .from('looking_for_offers')
           .select(`
-            *,
+            id,
             looking_for_requests!inner (
               user_id
             )
-          `, { count: 'exact', head: true })
+          `)
           .or(`user_id.eq.${userId},looking_for_requests.user_id.eq.${userId}`);
+
+        if (preOrdersError) {
+          console.error('Error fetching pre-orders:', preOrdersError);
+        }
 
         setMetrics(prev => ({
           ...prev,
           activeListings: listingsCount || 0,
           savedListings: savedCount || 0,
-          preOrders: preOrdersCount || 0,
+          preOrders: preOrdersData?.length || 0,
           // Mock data for now - these would need new tables/columns
           resourcesShared: 10,
           impact: 25
